@@ -43,19 +43,6 @@ public class User {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "user_id"),inverseJoinColumns = @JoinColumn(name = "role_id",referencedColumnName = "role_id"))
     private Set<Role> roles;
 
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorities = this.getRoles().stream()
-                .map(rol -> new SimpleGrantedAuthority("ROLE_" + rol.getRoleName()))
-                .collect(Collectors.toList());
-
-        // Agregar permisos como autoridades adicionales.
-        List<Permission> permissions = this.getRoles().stream()
-                .flatMap(role -> role.getPermissions().stream())
-                .toList();
-
-        permissions.forEach(p -> authorities.add(new SimpleGrantedAuthority(p.getPermissionName())));
-        return authorities;
-    }
     @PrePersist
     public void generateId() {
         if(this.id == null) {
