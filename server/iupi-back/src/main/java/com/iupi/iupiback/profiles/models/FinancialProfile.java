@@ -1,6 +1,7 @@
 package com.iupi.iupiback.profiles.models;
 
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils;
+import com.iupi.iupiback.auth.models.User;
 import com.iupi.iupiback.profiles.models.enums.KnowledgeFinancial;
 import com.iupi.iupiback.profiles.models.enums.RiskProfile;
 import com.iupi.iupiback.profiles.models.enums.SES;
@@ -48,6 +49,10 @@ public class FinancialProfile {
 
     @Column(name = "debts",length = 18)
     private Double debts;
+
+    @OneToOne
+    @JoinColumn(name = "userId", nullable = false, foreignKey = @ForeignKey(name = "FK_FINANCIAL_PROFILE_USER"))
+    private User user;
 
     @PrePersist
     public void generateId() {
