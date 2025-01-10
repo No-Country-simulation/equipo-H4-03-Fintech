@@ -1,7 +1,9 @@
 package com.iupi.iupiback.auth.models;
 
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.iupi.iupiback.profiles.models.FinancialProfile;
+import com.iupi.iupiback.profiles.models.Goal;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -48,7 +50,12 @@ public class User implements UserDetails {
     private List<Role> roles;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL,orphanRemoval = true)
+    @JsonIgnore
     private FinancialProfile financialProfile;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,orphanRemoval = true)
+    @JsonIgnore
+    private List<Goal>goals;
 
     @PrePersist
     public void generateId() {
