@@ -40,11 +40,11 @@ public class User implements UserDetails {
     @Column(name = "last_name",length = 150)
     private String lastName;
 
-    private Boolean active;
+    private Boolean active=true;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "user_id"),inverseJoinColumns = @JoinColumn(name = "role_id",referencedColumnName = "role_id"))
-    private Set<Role> roles;
+    private List<Role> roles;
 
     @PrePersist
     public void generateId() {
@@ -53,12 +53,15 @@ public class User implements UserDetails {
         }
     }
 
-    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream()
+        List<Permission> permissions = this.getRoles().stream()
                 .flatMap(role -> role.getPermissions().stream())
-                .map(permission -> new SimpleGrantedAuthority(permission.getPermissionName()))
-                .collect(Collectors.toSet());
+                .toList();
+
+        List<GrantedAuthority> authorities = this.getRoles().stream()
+                .map(rol -> new SimpleGrantedAuthority(rol.getRoleName())).collect(Collectors.toList());
+        permissions.forEach(p -> authorities.add(new SimpleGrantedAuthority(p.getPermissionName())));
+        return authorities;
     }
 
     @Override

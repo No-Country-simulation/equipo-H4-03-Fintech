@@ -1,59 +1,82 @@
 package com.iupi.iupiback.auth.config.security.filter;
 
 
-import com.iupi.iupiback.auth.services.IAuthService;
-import com.iupi.iupiback.auth.services.IJwtService;
-import io.jsonwebtoken.JwtException;
+import com.iupi.iupiback.auth.config.security.CustomUserDetailsService;
+import com.iupi.iupiback.auth.config.security.oauth2.users.UserPrincipal;
+import com.iupi.iupiback.auth.models.User;
+import com.iupi.iupiback.auth.repositories.IUserRepo;
+import com.iupi.iupiback.auth.utils.CookieUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @Component
-@RequiredArgsConstructor
+@Slf4j
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+    private final JwtUtils jwtUtils;
+    private final IUserRepo userRepo;
 
-    private final IJwtService jwtService;
-
-    private final IAuthService userDetailsService;
+    public JwtAuthenticationFilter(IUserRepo userRepo, JwtUtils jwtUtils, CustomUserDetailsService userDetailsService) {
+        this.jwtUtils = jwtUtils;
+        this.userRepo = userRepo;
+    }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
-
-        final String authHeader = request.getHeader("Authorization");
-        String jwt = null;
-        String email = null;
-
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            jwt = authHeader.substring(7);
-            try {
-                email = jwtService.extractUsername(jwt);
-            } catch (JwtException e) {
-                // Token inválido
-                logger.error("Token inválido: " + e.getMessage());
-            }
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+//        final String token = getTokenFromRequest(request);
+        Optional<Cookie> cookie = CookieUtils.getCookie(request, "token");
+        if(cookie.isEmpty()) {
+            filterChain.doFilter(request, response);
+            return ;
         }
+        String token = cookie.get().getValue();
 
-        if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(email);
-            if (jwtService.isTokenValid(jwt, userDetails)) {
-                UsernamePasswordAuthenticationToken authToken =
-                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        log.info( "Token: {}", token);
+        if(token == null) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+        String username = jwtUtils.getUsernameFromToken(token);
+        //username = jwtUtils.getUsernameFromToken(token);
+        if(username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            User userEntity = userRepo.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException(String.format("User with email %s not found",username)));
 
+            UserDetails user = UserPrincipal.create(userEntity);
+
+            if(jwtUtils.isTokenValid(token, user)) {
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(user, null,
+                        user.getAuthorities());
+
+                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
+            } else {
+                CookieUtils.deleteCookie(request, response, "token");
             }
-        }
 
+        }
         filterChain.doFilter(request, response);
+    }
+
+    private String getTokenFromRequest(HttpServletRequest request) {
+        final String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+        if (StringUtils.hasText(token) && token.startsWith("Bearer ")) {
+            return token.substring(7);
+        }
+        return null;
     }
 }
