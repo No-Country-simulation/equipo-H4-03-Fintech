@@ -4,7 +4,6 @@ import com.iupi.iupiback.auth.config.mapper.UserMapper;
 import com.iupi.iupiback.auth.config.security.filter.JwtUtils;
 import com.iupi.iupiback.auth.dto.request.LoginRequestDTO;
 import com.iupi.iupiback.auth.dto.request.RegisterRequestDTO;
-import com.iupi.iupiback.auth.dto.response.AuthResponseDTO;
 import com.iupi.iupiback.auth.dto.response.UserResponseDTO;
 import com.iupi.iupiback.auth.models.Role;
 import com.iupi.iupiback.auth.models.User;
@@ -13,7 +12,7 @@ import com.iupi.iupiback.auth.repositories.IUserRepo;
 import com.iupi.iupiback.auth.services.IAuthService;
 import com.iupi.iupiback.auth.utils.CookieUtils;
 import com.iupi.iupiback.common.exception.BadRequestException;
-import com.iupi.iupiback.common.exception.InvalidCredentialsException;
+
 import com.iupi.iupiback.common.exception.NotFoundException;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
@@ -65,6 +64,8 @@ public class AuthServiceImpl implements IAuthService {
         User user = new User();
         user.setEmail(registerRequestDTO.getUsername());
         user.setPassword(passwordEncoder.encode(registerRequestDTO.getPassword()));
+        user.setFirstName(registerRequestDTO.getFirstName());
+        user.setLastName(registerRequestDTO.getLastName());
         Role role = roleRepo.findByRoleName("INVESTOR").orElseThrow(() -> new NotFoundException("Role not found with name INVESTOR"));
         user.setRoles(Collections.singletonList(role));
         userRepository.save(user);

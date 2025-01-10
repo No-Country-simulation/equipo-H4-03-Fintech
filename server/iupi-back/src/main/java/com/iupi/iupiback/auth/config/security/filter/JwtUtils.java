@@ -59,14 +59,14 @@ public class JwtUtils {
                     .build()
                     .parseSignedClaims(token)
                     .getPayload();
-        } catch (ExpiredJwtException | MalformedJwtException e) {
-            throw e;
+        } catch (ExpiredJwtException e) {
+            throw new RuntimeException("Token is expired");
+        } catch (MalformedJwtException e) {
+            throw new RuntimeException("Token is malformed");
         } catch (SignatureException e) {
-            ErrorResponseDTO error = new ErrorResponseDTO("Invalid token", HttpStatus.UNAUTHORIZED,"Token is invalid or tampered with", LocalDateTime.now());
-            throw new RuntimeException(String.valueOf(error));
+            throw new RuntimeException("Token signature is invalid");
         } catch (Exception e) {
-            ErrorResponseDTO error = new ErrorResponseDTO("Internal Server Error", HttpStatus.UNAUTHORIZED, "Error interno del servidor",LocalDateTime.now());
-            throw new RuntimeException(String.valueOf(error));
+            throw new RuntimeException("Error while parsing JWT", e);
         }
     }
 

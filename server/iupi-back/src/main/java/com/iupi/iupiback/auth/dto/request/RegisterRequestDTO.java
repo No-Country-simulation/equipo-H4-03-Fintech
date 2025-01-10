@@ -1,15 +1,16 @@
 package com.iupi.iupiback.auth.dto.request;
 
-import lombok.Getter;
+import lombok.Data;
 
-import java.util.List;
-
-@Getter
+@Data
 public class RegisterRequestDTO {
 
     private String username;
 
     private String password;
 
-    private List<String> rolesId;
+    private String firstName;
+
+    private String lastName;
+
 }

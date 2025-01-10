@@ -78,7 +78,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable) // Updated CSRF configuration
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers(AUTH_ENDPOINTS_PUBLIC).permitAll();
-                    auth.anyRequest().authenticated();
+                    auth.anyRequest().denyAll();
                 })
                  .oauth2Login(oauth2 -> {
                      // Configuración del endpoint de autorización
