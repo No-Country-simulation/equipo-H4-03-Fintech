@@ -1,6 +1,7 @@
 package com.iupi.iupiback.auth.models;
 
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils;
+import com.iupi.iupiback.profiles.models.FinancialProfile;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -45,6 +46,9 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "user_id"),inverseJoinColumns = @JoinColumn(name = "role_id",referencedColumnName = "role_id"))
     private List<Role> roles;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL,orphanRemoval = true)
+    private FinancialProfile financialProfile;
 
     @PrePersist
     public void generateId() {
