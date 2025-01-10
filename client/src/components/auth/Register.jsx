@@ -6,7 +6,7 @@ import { useCookies } from 'react-cookie'
 import { SignUp } from "../../actions/auth";
 import { setUser } from '../../redux/slices/userSlices'
 
-export default function Register() {
+export default function Register({set}) {
 
   const [state, action] = useActionState(SignUp, undefined)
   const formInitialState = {
@@ -45,76 +45,71 @@ export default function Register() {
   };
 
   return (
-    <main className="w-screen flex flex-col items-center">
-      <header>form register en /components/auth/Register</header>
-      <form action={action} >
-        <article className="flex flex-col gap-2 self-stretch text-xl">
-          <span >Nombre</span>
+    <form action={action} className="w-screen flex flex-col items-center">
+      <article className="flex flex-col gap-2 self-stretch text-xl">
+        <span >Nombre completo</span>
+        <input
+          className="w-100 p-2 b-1 border bg-transparent placeholder:text-gray-500 placeholder:italic placeholder:opacity-60"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+        />
+        {state?.name && (
+          <span className="text-colorFithy text-sm">
+            {errors.name}
+          </span>
+        )}
+      </article>
+
+      <article className="flex flex-col gap-2 self-stretch text-xl">
+        <span >Email</span>
+        <input
+          className="w-100 p-2 b-1 border bg-transparent placeholder:text-gray-500 placeholder:italic placeholder:opacity-60"
+          name="name"
+          value={formData.email}
+          onChange={handleChange}
+        />
+        {state?.email && (
+          <span className="text-colorFithy text-sm">
+            {errors.email}
+          </span>
+        )}
+      </article>
+
+      <article className="flex flex-col gap-2 self-stretch text-xl">
+        <span>Contraseña</span>
+        <div className="relative">
           <input
-            className="w-100 p-2 b-1 border bg-transparent placeholder:text-gray-500 placeholder:italic placeholder:opacity-60"
-            name="name"
-            value={formData.name}
+            className="p-2 b-1 border bg-transparent placeholder:text-gray-500 placeholder:italic placeholder:opacity-60"
+            name="password"
+            type={showPass ? "text" : "password"}
+            value={formData.password}
             onChange={handleChange}
           />
-          {state?.name && (
-            <span className="text-colorFithy text-sm">
-              {errors.name}
+          <div className="absolute top-3 right-3">
+            <span
+              className={`cursor-pointer ${formData.password.length ? "" : "hidden"}`}
+              onClick={() => setShowPass(prev => !prev)}
+            >
+              👁️
             </span>
-          )}
-        </article>
-
-        <article className="flex flex-col gap-2 self-stretch text-xl">
-          <span >Email</span>
-          <input
-            className="w-100 p-2 b-1 border bg-transparent placeholder:text-gray-500 placeholder:italic placeholder:opacity-60"
-            name="name"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          {state?.email && (
-            <span className="text-colorFithy text-sm">
-              {errors.email}
-            </span>
-          )}
-        </article>
-
-        <article className="flex flex-col gap-2 self-stretch text-xl">
-          <span>Contraseña</span>
-          <div className="relative">
-            <input
-              className="p-2 b-1 border bg-transparent placeholder:text-gray-500 placeholder:italic placeholder:opacity-60"
-              name="password"
-              type={showPass ? "text" : "password"}
-              value={formData.password}
-              onChange={handleChange}
-            />
-            <div className="absolute top-3 right-3">
-              <span
-                className={`cursor-pointer ${formData.password.length ? "" : "hidden"}`}
-                onClick={() => setShowPass(prev => !prev)}
-              >
-                👁️
-              </span>
-            </div>
           </div>
-          {state?.password && (
-            <ul>
-              {errors.password.map((error, index) => (
-                <li key={index} className="text-colorFithy text-sm">
-                  {error}
-                </li>
-              ))}
-            </ul>
-          )}
-        </article>
-
-        <button type="submit">Crear cuenta</button>
-
-      </form>
-      <section className="w-1/2 flex flex-col gap-5">
-        <button>apple</button>
-        <button>google</button>
+        </div>
+        {state?.password && (
+          <ul>
+            {errors.password.map((error, index) => (
+              <li key={index} className="text-colorFithy text-sm">
+                {error}
+              </li>
+            ))}
+          </ul>
+        )}
+      </article>
+      <button type="submit">Crear cuenta</button>
+      <section>
+        <span>¿Ya tienes cuenta?</span>
+        <button onClick={() => set('login')}>ingresar</button>
       </section>
-    </main>
+    </form>
   )
 }
