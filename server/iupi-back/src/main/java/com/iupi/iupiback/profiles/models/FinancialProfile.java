@@ -51,7 +51,7 @@ public class FinancialProfile {
     private Double debts;
 
     @OneToOne
-    @JoinColumn(name = "userId", nullable = false, foreignKey = @ForeignKey(name = "FK_FINANCIAL_PROFILE_USER"))
+    @JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(name = "FK_FINANCIAL_PROFILE_USER"))
     private User user;
 
     @PrePersist
