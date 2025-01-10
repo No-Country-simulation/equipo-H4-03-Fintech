@@ -1,6 +1,7 @@
 package com.iupi.iupiback.profiles.models;
 
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.iupi.iupiback.auth.models.User;
 import com.iupi.iupiback.profiles.models.enums.KnowledgeFinancial;
 import com.iupi.iupiback.profiles.models.enums.RiskProfile;
@@ -11,6 +12,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -53,6 +56,10 @@ public class FinancialProfile {
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(name = "FK_FINANCIAL_PROFILE_USER"))
     private User user;
+
+    @OneToMany(mappedBy = "financialProfile", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<FlowMoney> flows;
 
     @PrePersist
     public void generateId() {
