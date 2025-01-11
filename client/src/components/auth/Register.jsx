@@ -1,12 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useActionState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { useCookies } from 'react-cookie'
 import { SignUp } from "../../actions/auth";
 import { setUser } from '../../redux/slices/userSlices'
+import FormInput from "../ui/FormInput";
+import FormPassword from "../ui/FormPassword";
 
-export default function Register() {
+export default function Register({ set }) {
 
   const [state, action] = useActionState(SignUp, undefined)
   const formInitialState = {
@@ -29,13 +31,12 @@ export default function Register() {
       } else {
         setCookie("user", state[1].token, { path: "/" });
         dispatch(setUser(state[1].user));
-        navigate(`/user/dashboard`);
+        navigate(`/dashboard`);
       }
     }
   }, [state])
 
   const [formData, setFormData] = useState(formInitialState);
-  const [showPass, setShowPass] = useState(false);
 
   function handleChange({ target: { name, value } }) {
     setFormData((prev) => ({
@@ -45,76 +46,68 @@ export default function Register() {
   };
 
   return (
-    <main className="w-screen flex flex-col items-center">
-      <header>form register en /components/auth/Register</header>
-      <form action={action} >
-        <article className="flex flex-col gap-2 self-stretch text-xl">
-          <span >Nombre</span>
-          <input
-            className="w-100 p-2 b-1 border bg-transparent placeholder:text-gray-500 placeholder:italic placeholder:opacity-60"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-          />
-          {state?.name && (
-            <span className="text-colorFithy text-sm">
-              {errors.name}
-            </span>
-          )}
+    <form action={action} className="flex flex-col items-center gap-4 m-4">
+      {/* 
+      //#region NAME
+      */}
+      <FormInput
+        label={"Nombre completo"}
+        name={"name"}
+        value={formData.name}
+        handler={handleChange}
+        error={state?.name}
+      />
+      {/* 
+      //#endregion
+      //#region EMAIL
+      */}
+      <FormInput
+        label={"Email"}
+        name={"email"}
+        value={formData.email}
+        handler={handleChange}
+        error={state?.email}
+      />
+      {/* 
+      //#endregion
+      //#region PASSWORD
+      */}
+      <FormPassword
+        value={formData.password}
+        handler={handleChange}
+        errors={state?.password}
+      />
+      {/* 
+      //#endregion
+      */}
+      <section className="w-full flex md:flex-col-reverse items-center md:justify-between md:gap-3">
+        <article className="flex gap-1 self-start">
+          <input type="checkbox" name="remember" id="remember" />
+          <label htmlFor="remember">Recuérdame</label>
         </article>
 
-        <article className="flex flex-col gap-2 self-stretch text-xl">
-          <span >Email</span>
-          <input
-            className="w-100 p-2 b-1 border bg-transparent placeholder:text-gray-500 placeholder:italic placeholder:opacity-60"
-            name="name"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          {state?.email && (
-            <span className="text-colorFithy text-sm">
-              {errors.email}
-            </span>
-          )}
+        <article className="flex gap-1 self-start">
+          <input type="checkbox" name="remember" id="remember" />
+          <label htmlFor="remember">He leído los</label>
+          <Link className="underline self-end">términos y condiciones</Link>
         </article>
-
-        <article className="flex flex-col gap-2 self-stretch text-xl">
-          <span>Contraseña</span>
-          <div className="relative">
-            <input
-              className="p-2 b-1 border bg-transparent placeholder:text-gray-500 placeholder:italic placeholder:opacity-60"
-              name="password"
-              type={showPass ? "text" : "password"}
-              value={formData.password}
-              onChange={handleChange}
-            />
-            <div className="absolute top-3 right-3">
-              <span
-                className={`cursor-pointer ${formData.password.length ? "" : "hidden"}`}
-                onClick={() => setShowPass(prev => !prev)}
-              >
-                👁️
-              </span>
-            </div>
-          </div>
-          {state?.password && (
-            <ul>
-              {errors.password.map((error, index) => (
-                <li key={index} className="text-colorFithy text-sm">
-                  {error}
-                </li>
-              ))}
-            </ul>
-          )}
-        </article>
-
-        <button type="submit">Crear cuenta</button>
-
-      </form>
-      <section className="w-1/2 flex flex-col gap-5">
-        <button>apple</button>
-        <button>google</button>
       </section>
-    </main>
+      {/*
+      //#region SUBMIT
+      */}
+      <button
+        type="submit"
+        className="w-full border border-slate-300 py-2 rounded-[4px]"
+      >
+        Crear cuenta
+      </button>
+      {/* 
+      //#endregion
+      */}
+      <section>
+        <span>¿Ya tienes cuenta?</span>
+        <button onClick={() => set('login')}>ingresar</button>
+      </section>
+    </form>
   )
 }
