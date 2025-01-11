@@ -35,7 +35,7 @@ public abstract class CRUDServiceImpl<T,ID> implements ICRUService<T,ID> {
     }
 
     @Override
-    public void delete(T t) {
-        getRepo().delete(t);
+    public void delete(ID id) {
+        getRepo().deleteById(id);
     }
 }

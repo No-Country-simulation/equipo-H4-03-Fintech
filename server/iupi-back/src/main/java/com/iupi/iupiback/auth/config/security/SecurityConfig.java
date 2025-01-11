@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -78,6 +79,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable) // Updated CSRF configuration
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers(AUTH_ENDPOINTS_PUBLIC).permitAll();
+                    auth.requestMatchers(HttpMethod.GET,"/api/auth/logout").hasAuthority("INVESTOR");
                     auth.anyRequest().denyAll();
                 })
                  .oauth2Login(oauth2 -> {

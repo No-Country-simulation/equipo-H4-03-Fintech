@@ -8,5 +8,5 @@ public interface ICRUService <T,ID>{
     T updateById(T t,ID id);
     T findById(ID id);
     T save(T t);
-    void delete(T t);
+    void delete(ID id);
 }
