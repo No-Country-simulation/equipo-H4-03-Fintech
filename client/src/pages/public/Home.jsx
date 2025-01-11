@@ -17,11 +17,12 @@ export default function Home() {
     home: true
   }
   const [component, setComponent] = useState(initial)
-
+  //#region transition
   const handleTransition = async () => {
     await new Promise(resolve => setTimeout(resolve, 3000));
     setComponent({ ...clearComponentState, login: true });
   }
+  //#endregion
 
   const handleChangeComponent = component => {
     setComponent({
@@ -42,7 +43,7 @@ export default function Home() {
   return (
     <main className={`w-dvw h-dvh flex flex-col items-center justify-center p-0 m-0 ${component.home ? "bg-primary" : ""}`}>
       {
-        //#region HOME
+        //#region LOGO
         component?.home && (
           <img src="/logo.svg" alt="logo IUPI" className="w-screen h-dvh" />
         )
@@ -51,8 +52,12 @@ export default function Home() {
       {
         (component?.login || component?.register) && (
           <main className="flex flex-col items-center">
-            <header className="text-title mb-4">Bienvenido</header>
-            <SocialButtons />
+            <header className="text-title mb-4">
+              {
+                component.register ? 'Registro' : 'Bienvenido'
+              }
+            </header>
+            <SocialButtons auth={component} />
             <Separator />
             {
               //#region LOGIN
