@@ -18,7 +18,7 @@ export default function Register({ set }) {
   }
 
   // eslint-disable-next-line no-unused-vars
-  const [cookies, setCookie] = useCookies(["user"]);
+  const [cookies, setCookie] = useCookies(["token"]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -29,7 +29,7 @@ export default function Register({ set }) {
         console.error('Error:', state[0]);
         return;
       } else {
-        setCookie("user", state[1].token, { path: "/" });
+        setCookie("token", state[1].token, { path: "/" });
         dispatch(setUser(state[1].user));
         navigate(`/dashboard`);
       }
