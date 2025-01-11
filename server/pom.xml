@@ -130,7 +130,7 @@
                     <archive>
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            <mainClass>com.iupi.Application</mainClass>
+                            <mainClass>com.iupiback.Application</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
