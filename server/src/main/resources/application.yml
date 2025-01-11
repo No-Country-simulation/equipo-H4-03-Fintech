@@ -36,7 +36,7 @@ spring:
             client-id: ${GOOGLE_ID}
             client-secret: ${GOOGLE_SECRET}
             scope: email,profile
-            redirect-uri: "http://localhost:8090/oauth2/callback/google"
+            redirect-uri: "http://iupi-api.up.railway.app/oauth2/callback/google"
 
           apple:
             client-id: ${APPLE_ID}
