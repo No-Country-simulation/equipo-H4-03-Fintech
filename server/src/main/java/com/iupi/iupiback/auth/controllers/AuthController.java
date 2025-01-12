@@ -9,6 +9,7 @@ import com.iupi.iupiback.auth.dto.response.UserResponseDTO;
 import com.iupi.iupiback.auth.services.IAuthService;
 import com.iupi.iupiback.auth.utils.CookieUtils;
 
+import com.iupi.iupiback.common.exception.BadRequestException;
 import com.iupi.iupiback.common.exception.UnAuthorizedException;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -53,5 +54,52 @@ public class AuthController {
         CookieUtils.deleteCookie(request,resp,"token");
         return ResponseEntity.ok().build();
     }
+
+
+    @PostMapping("/recover-password")
+    public ResponseEntity<String> recoverPassword(@RequestParam String email) {
+        if (!authService.verifyUserByEmail(email)) {
+            return ResponseEntity.badRequest().body("No se encontró un usuario con este correo electrónico");
+        }
+        String verificationCode = authService.generateVerificationCode(email);
+        authService.sendVerificationCode(email, verificationCode);  // Enviar correo electrónico con el código
+        return ResponseEntity.ok("Código de verificación enviado");
+    }
+
+    @PostMapping("/validate-reset-code")
+    public ResponseEntity<String> validateResetCode(@RequestParam String email, @RequestParam String code) {
+        if (!authService.verifyCode(email, code)) {
+            return ResponseEntity.badRequest().body("Código de verificación inválido");
+        }
+        // Generar un token temporal para el restablecimiento de contraseña
+        String temporaryToken = authService.generateTemporaryToken(email);
+        return ResponseEntity.ok(temporaryToken);
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<String> resetPasswordWithToken(@RequestParam String temporaryToken, @RequestParam String newPassword) {
+        try {
+            authService.resetPasswordWithToken(temporaryToken, newPassword);
+            return ResponseEntity.ok("Contraseña actualizada exitosamente");
+        } catch (IllegalArgumentException ex) {
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        } catch (BadRequestException ex) {
+            return ResponseEntity.badRequest().body("El token temporal es inválido o ha expirado");
+        }
+    }
+            // Restablecer contraseña
+//    @PostMapping("/reset-password")
+//    public ResponseEntity<String> resetPassword(@RequestParam String email, @RequestParam String code, @RequestParam String newPassword) {
+//        if (!authService.verifyCode(email, code)) {
+//            return ResponseEntity.badRequest().body("Código de verificación inválido");
+//        }
+//        try {
+//            authService.resetPassword(email, newPassword);
+//            return ResponseEntity.ok("Contraseña actualizada exitosamente");
+//        } catch (IllegalArgumentException ex) {
+//            return ResponseEntity.badRequest().body(ex.getMessage());
+//        }
+//    }
+
 }
 

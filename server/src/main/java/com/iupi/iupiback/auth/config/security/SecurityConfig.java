@@ -59,7 +59,10 @@ public class SecurityConfig {
             "/oauth2/callback/**",
             "/oauth2/callback/google",
             "/oauth2/callback/google/**",
-            "/api/auth/oauth2/authorize/**"
+            "/api/auth/oauth2/authorize/**",
+            "/api/auth/recover-password/**",
+            "/api/auth/validate-reset-code/**",
+            "/api/auth/reset-password/**"
     };
 
     public SecurityConfig(HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository, CustomOAuth2UserService customOAuth2UserService, ClientRegistrationRepository clientRegistrationRepository, OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler, OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler, JwtAuthenticationFilter jwtAuthenticationFilter, AuthenticationProvider authenticationProvider) {

@@ -52,6 +52,19 @@ spring:
             token-uri: https://appleid.apple.com/auth/token
             user-info-uri: https://appleid.apple.com/auth/userinfo
             user-name-attribute: email
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          ssl:
+            trust: smtp.gmail.com
 server:
   port: 8090
   error:
