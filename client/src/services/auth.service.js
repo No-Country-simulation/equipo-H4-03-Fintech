@@ -19,6 +19,16 @@ const authService = {
     }
   },
 
+  async googleAuth(credentials) {
+    try {
+      const { data } = await api.post('/auth/login', credentials)
+      console.log(data);
+      return [null, data]
+    } catch (error) {
+      return [error]
+    }
+  },
+
   async logout() {
     try {
       await api.post('/users/logout')

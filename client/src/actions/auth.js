@@ -1,7 +1,6 @@
 /* global google */
 import { loginFormSchema, registerFormSchema } from '../../lib/definitions'
 import authService from '../services/auth.service'
-import { jwtDecode } from 'jwt-decode'
 
 export async function SignIn(state, formData) {
   const validatedFields = loginFormSchema.safeParse({
@@ -13,7 +12,13 @@ export async function SignIn(state, formData) {
     return validatedFields.error.flatten().fieldErrors
   }
   else {
-    return await authService.login(validatedFields.data)
+    const { password, email } = validatedFields.data
+    const result = await authService.login({
+      username: email,
+      password
+    })
+    
+    return result
   }
 }
 
@@ -28,6 +33,14 @@ export async function SignUp(state, formData) {
     return validatedFields.error.flatten().fieldErrors
   }
   else {
-    return await authService.register(validatedFields.data)
+    const { name, email, password } = validatedFields.data
+    const [firstName, lastname] = name.split(' ')
+    const data = {
+      firstName,
+      lastName: lastname ? lastname : ' ',
+      username: email,
+      password
+    }
+    return await authService.register(data)
   }
 }

@@ -3,9 +3,32 @@ import Register from "../../components/auth/Register";
 import Login from "../../components/auth/login";
 import SocialButtons from "../../components/auth/SocialButtons";
 import Separator from "../../components/ui/Separator";
-
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useCookies } from "react-cookie";
+import { jwtDecode } from "jwt-decode";
+import { userService } from "../../services/user.service";
 
 export default function Home() {
+
+  const location = useLocation()
+  const navigate = useNavigate()
+  const [cookies, setCookies] = useCookies()
+  
+  useEffect(()=> {
+    const params = new URLSearchParams(location.search);
+    const token = params.get('token');
+    if (cookies?.token) {
+      console.log(cookies?.token);
+      navigate('/dashboard')
+    }
+    
+    if(token) {
+      setCookies("token", token)
+      // const {userId} = jwtDecode(token)
+      // userService.getProfile(userId)
+      navigate('/dashboard')
+    }
+  }, [])
 
   const clearComponentState = {
     home: false,

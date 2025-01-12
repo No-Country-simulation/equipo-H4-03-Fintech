@@ -2,7 +2,6 @@
 import { useState, useActionState, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { useCookies } from 'react-cookie'
 import { SignIn } from "../../actions/auth";
 import { setUser } from '../../redux/slices/userSlices'
 import FormInput from "../ui/FormInput";
@@ -16,8 +15,6 @@ export default function Login({ set }) {
     password: "",
   }
 
-  // eslint-disable-next-line no-unused-vars
-  const [cookies, setCookie] = useCookies(["user"]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -28,15 +25,14 @@ export default function Login({ set }) {
         console.error('Error:', state[0]);
         return;
       } else {
-        setCookie("user", state[1].token, { path: "/" });
-        dispatch(setUser(state[1].user));
+        dispatch(setUser(state[1]));
         navigate(`/dashboard`);
       }
     }
   }, [state])
 
   const [formData, setFormData] = useState(formInitialState);
-  
+
   function handleChange({ target: { name, value } }) {
     setFormData((prev) => ({
       ...prev,
@@ -68,28 +64,28 @@ export default function Login({ set }) {
       {/* 
       //#endregion
       */}
-      <section className="w-full flex md:flex-col-reverse items-center md:justify-between md:gap-3">
-        <article className="flex gap-1 self-start">
+      <section className="w-full flex md:flex-col-reverse items-center md:justify-between md:gap-3 gap-2">
+        <article className="flex gap-1 self-start items-center">
           <input type="checkbox" name="remember" id="remember" />
           <label htmlFor="remember">Recuérdame</label>
         </article>
 
-        <Link className="text-sm underline italic self-end">Olvidé mi password</Link>
+        <Link className="self-end hover:underline">Olvidé mi password</Link>
       </section>
       {/*
       //#region SUBMIT
       */}
       <button
         type="submit"
-        className="w-full border border-slate-300 py-2 rounded-[4px]"
+        className="w-full border border-slate-300 py-2 rounded-3xl"
       >
         Ingresar
       </button>
       <div className="w-full h-[2px] bg-slate-400" />
 
-      <section>
+      <section className="flex gap-2">
         <span>¿No tienes cuenta ahún?</span>
-        <button onClick={() => set('register')}>registrarme</button>
+        <button className=" hover:underline" onClick={() => set('register')}>registrarme</button>
       </section>
       {/* 
       //#endregion

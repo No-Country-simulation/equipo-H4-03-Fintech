@@ -2,7 +2,6 @@
 import { useState, useActionState, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { useCookies } from 'react-cookie'
 import { SignUp } from "../../actions/auth";
 import { setUser } from '../../redux/slices/userSlices'
 import FormInput from "../ui/FormInput";
@@ -17,8 +16,6 @@ export default function Register({ set }) {
     password: "",
   }
 
-  // eslint-disable-next-line no-unused-vars
-  const [cookies, setCookie] = useCookies(["token"]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -29,9 +26,8 @@ export default function Register({ set }) {
         console.error('Error:', state[0]);
         return;
       } else {
-        setCookie("token", state[1].token, { path: "/" });
-        dispatch(setUser(state[1].user));
-        navigate(`/dashboard`);
+        dispatch(setUser(state[1]));
+        navigate(`/onboarding/`);
       }
     }
   }, [state])
@@ -80,16 +76,16 @@ export default function Register({ set }) {
       {/* 
       //#endregion
       */}
-      <section className="w-full flex md:flex-col-reverse items-center md:justify-between md:gap-3">
-        <article className="flex gap-1 self-start">
+      <section className="w-full flex flex-col-reverse items-center md:justify-between gap-3">
+        <article className="flex gap-1 self-start items-baseline">
           <input type="checkbox" name="remember" id="remember" />
-          <label htmlFor="remember">Recuérdame</label>
+          <label htmlFor="remember">He leído los</label>
+          <Link className="hover:underline self-end text-slate-400">términos y condiciones</Link>
         </article>
 
         <article className="flex gap-1 self-start">
           <input type="checkbox" name="remember" id="remember" />
-          <label htmlFor="remember">He leído los</label>
-          <Link className="underline self-end">términos y condiciones</Link>
+          <label htmlFor="remember">Recuérdame</label>
         </article>
       </section>
       {/*
@@ -97,7 +93,7 @@ export default function Register({ set }) {
       */}
       <button
         type="submit"
-        className="w-full border border-slate-300 py-2 rounded-[4px]"
+        className="w-full border border-slate-300 py-2 rounded-3xl"
       >
         Crear cuenta
       </button>
@@ -106,7 +102,7 @@ export default function Register({ set }) {
       */}
       <section>
         <span>¿Ya tienes cuenta?</span>
-        <button onClick={() => set('login')}>ingresar</button>
+        <button className="hover:underline" onClick={() => set('login')}>ingresar</button>
       </section>
     </form>
   )
