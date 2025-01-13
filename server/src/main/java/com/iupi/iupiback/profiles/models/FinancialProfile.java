@@ -2,6 +2,7 @@ package com.iupi.iupiback.profiles.models;
 
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.iupi.iupiback.auth.models.Role;
 import com.iupi.iupiback.auth.models.User;
 import com.iupi.iupiback.profiles.models.enums.KnowledgeFinancial;
 import com.iupi.iupiback.profiles.models.enums.RiskProfile;
@@ -60,6 +61,10 @@ public class FinancialProfile {
     @OneToMany(mappedBy = "financialProfile", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<FlowMoney> flows;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "profile_response", joinColumns = @JoinColumn(name = "financial_profile_id",referencedColumnName = "financial_profile_id"),inverseJoinColumns = @JoinColumn(name = "answer_id",referencedColumnName = "answer_id"))
+    private List<Answer> answers;
 
     @PrePersist
     public void generateId() {
