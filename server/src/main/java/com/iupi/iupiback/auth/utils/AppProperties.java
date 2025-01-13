@@ -30,7 +30,7 @@ public class AppProperties {
         @Value("${authorized.redirect.uri}")
         private String redirectUri;
         //        private List<String> authorizedRedirectUris = List.of(this.redirectUri);
-        private List<String> authorizedRedirectUris = List.of("https://iupi-ahorros.vercel.app/home","http://localhost:5173/home");
+        private List<String> authorizedRedirectUris = List.of("http://localhost:5173/home");
 
         public OAuth2 authorizedRedirectUris(List<String> authorizedRedirectUris) {
             this.authorizedRedirectUris = authorizedRedirectUris;

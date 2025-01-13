@@ -79,7 +79,3 @@ logging:
     org.springframework.security.oauth2: DEBUG  # Agregado para depurar problemas de autenticación
     ccom.iupi.iupiback.auth.config.security.oauth2: DEBUG  # Agregado para ver logs de tu aplicación
     org.hibernate.orm.connections.pooling: OFF
-redirect:
-  uri:
-    production: https://iupi-ahorros.vercel.app/home
-    local: http://localhost:5173/home
