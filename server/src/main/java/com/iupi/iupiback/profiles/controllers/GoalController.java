@@ -27,28 +27,34 @@ public class GoalController {
 
     private final GoalMapper mapper;
 
+    //Búsqueda de objetivo por id
     @GetMapping("{id}")
     public ResponseEntity<GoalResponseDTO> findById(@PathVariable("id") String goalId) {
         return ResponseEntity.ok(mapper.toGoalResponseDTO(service.findById(goalId)));
     }
 
+    //Guardar objetivo
     @PostMapping
     public ResponseEntity<GoalResponseDTO> save(@Valid @RequestBody GoalRequestDTO dto, @CurrentUser UserPrincipal userPrincipal) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(mapper.toGoalResponseDTO(service.saveTransactional(dto,userPrincipal.getId())));
     }
 
+    // Actualizar objetivo
     @PutMapping("/{id}")
     public ResponseEntity<GoalResponseDTO> update(@Valid @RequestBody GoalRequestDTO dto, @PathVariable("id") String id) {
         return ResponseEntity.ok(mapper.toGoalResponseDTO(service.updateById(mapper.toGoal(dto), id)));
     }
 
+    //Eliminar objetivo
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") String id) {
         service.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    @GetMapping("/page")
+
+    //Listar objetivos
+    @GetMapping
     public ResponseEntity<Page<GoalResponseDTO>> findAll(@CurrentUser UserPrincipal user,
             @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "goal_name") String sortField, @RequestParam(defaultValue = "desc") String sortOrder) {

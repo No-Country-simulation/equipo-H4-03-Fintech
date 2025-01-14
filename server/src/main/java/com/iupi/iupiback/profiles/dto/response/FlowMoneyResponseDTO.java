@@ -10,6 +10,7 @@ public record FlowMoneyResponseDTO(
         String flowMoneyDescription,
         Double amount,
         LocalDate date,
-        String urlDocument
+        String urlDocument,
+        String userId
 ) {
 }
