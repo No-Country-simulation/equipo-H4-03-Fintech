@@ -86,6 +86,14 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers(AUTH_ENDPOINTS_PUBLIC).permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/api/auth/logout").hasAuthority("INVESTOR");
+                    auth.requestMatchers(HttpMethod.PUT,"/api/users/change-password").hasAuthority("INVESTOR");
+                    auth.requestMatchers(HttpMethod.PUT,"/api/users").hasAuthority("INVESTOR");
+                    auth.requestMatchers(HttpMethod.GET,"/api/goals").hasAuthority("INVESTOR");
+                    auth.requestMatchers(HttpMethod.PUT,"/api/goals/**").hasAuthority("INVESTOR");
+                    auth.requestMatchers(HttpMethod.GET,"/api/goals/**").hasAuthority("INVESTOR");
+                    auth.requestMatchers(HttpMethod.POST,"/api/goals").hasAuthority("INVESTOR");
+                    auth.requestMatchers(HttpMethod.GET,"/api/surveys").hasAuthority("INVESTOR");
+                    
                     auth.anyRequest().denyAll();
                 })
                  .oauth2Login(oauth2 -> {
