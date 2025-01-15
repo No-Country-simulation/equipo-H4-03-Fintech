@@ -6,6 +6,8 @@ import { SignUp } from "../../actions/auth";
 import { setUser } from '../../redux/slices/userSlices'
 import FormInput from "../ui/FormInput";
 import FormPassword from "../ui/FormPassword";
+import Modal from "../ui/Modal";
+import ModalText from "../ui/ModalText";
 
 export default function Register({ set }) {
 
@@ -14,12 +16,21 @@ export default function Register({ set }) {
     name: "",
     email: "",
     password: "",
+    terms: false,
+    policy: false
   }
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log(state);
+    console.log('terms');
+    console.log(typeof formData.terms);
+
+    console.log('policy');
+    console.log(typeof formData.policy);
+
     if (!state) return
     if (Array.isArray(state)) {
       if (state[0]) {
@@ -40,6 +51,17 @@ export default function Register({ set }) {
       [name]: value,
     }));
   };
+
+  function handleTermsPolicy({ target: { name, checked } }) {
+    setFormData((prev) => ({
+      ...prev,
+      [name]: Boolean(checked),
+    }));
+  }
+
+  const modalsInitialState = { policy: false, terms: false }
+  const [isOpenModal, setIsOpenModals] = useState(modalsInitialState)
+  const onClose = () => setIsOpenModals(modalsInitialState)
 
   return (
     <form action={action} className="flex flex-col items-center gap-4 m-4">
@@ -76,18 +98,80 @@ export default function Register({ set }) {
       {/* 
       //#endregion
       */}
-      <section className="w-full flex flex-col-reverse items-center md:justify-between gap-3">
-        <article className="flex gap-1 self-start items-baseline">
-          <input type="checkbox" name="terms" id="terms" />
-          <label htmlFor="terms">He leído los</label>
-          <Link className="hover:underline self-end text-slate-400">términos y condiciones</Link>
-        </article>
+      <section className="w-full flex flex-col items-center md:justify-between gap-3">
+        <div className="flex flex-col gap-1">
+          <article className="flex gap-1 self-start items-baseline">
+            <input
+              value={formData.terms}
+              type="checkbox"
+              name="terms"
+              id="terms"
+              onChange={handleTermsPolicy}
+              checked={formData.terms}
+            />
+            <label htmlFor="terms">Acepto los</label>
+            <button
+              className="hover:underline self-end text-slate-400"
+              onClick={() => {
+                setIsOpenModals({
+                  ...modalsInitialState,
+                  terms: true
+                })
+              }}
+            >
+              términos y condiciones
+            </button>
+            <Modal
+              title={"Términos y condiciones"}
+              onClose={onClose}
+              isOpen={isOpenModal.terms}
+            >
+              <ModalText />
+            </Modal>
+          </article>
+          {state?.terms && (
+            <span className="text-destructive text-sm">
+              {state?.terms}
+            </span>
+          )}
+        </div>
 
-        <article className="flex gap-1 self-start items-baseline">
-          <input type="checkbox" name="privacy" id="privacy" />
-          <label htmlFor="privacy">He leído los</label>
-          <Link className="hover:underline self-end text-slate-400">términos de privacidad</Link>
-        </article>
+        <div className="flex flex-col gap-1">
+          <article className="flex gap-1 self-start items-baseline">
+            <input
+              value={formData.policy}
+              type="checkbox"
+              name="policy"
+              id="policy"
+              onChange={handleTermsPolicy}
+              checked={formData.policy}
+            />
+            <label htmlFor="policy">He leído las</label>
+            <button
+              onClick={() => {
+                setIsOpenModals({
+                  ...modalsInitialState,
+                  policy: true
+                })
+              }}
+              className="hover:underline self-end text-slate-400"
+            >
+              políticas de privacidad.
+            </button>
+            <Modal
+              title={"Políticas de privacidad"}
+              onClose={onClose}
+              isOpen={isOpenModal.policy}
+            >
+              <ModalText />
+            </Modal>
+          </article>
+          {state?.policy && (
+            <span className="text-destructive text-sm">
+              {state?.policy}
+            </span>
+          )}
+        </div>
       </section>
       {/*
       //#region SUBMIT
