@@ -16,6 +16,20 @@ export const registerFormSchema = z.object({
       message: 'Debe contener al menos 1 caracter especial.',
     })
     .trim(),
+  terms: z
+    .string({
+      message: "Debes aceptar las políticas de privacidad"
+    })
+    .refine((val) => val === "true", {
+      message: "Debes aceptar los términos y condiciones"
+    }),
+  policy: z
+    .string({
+      message: "Debes aceptar las políticas de privacidad"
+    })
+    .refine((val) => val === "true", {
+      message: "Debes aceptar las políticas de privacidad"
+    })
 })
 
 export const loginFormSchema = z.object({
