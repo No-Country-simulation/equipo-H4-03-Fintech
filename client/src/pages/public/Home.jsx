@@ -7,6 +7,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 import { jwtDecode } from "jwt-decode";
 import { userService } from "../../services/user.service";
+import FormsContainer from "../../components/auth/FormsContainer";
 
 export default function Home() {
 
@@ -17,17 +18,15 @@ export default function Home() {
   useEffect(()=> {
     const params = new URLSearchParams(location.search);
     const token = params.get('token');
-    if (cookies?.token) {
-      console.log(cookies?.token);
-      navigate('/dashboard')
-    }
-    
     if(token) {
       setCookies("token", token)
-      // const {userId} = jwtDecode(token)
-      // userService.getProfile(userId)
+      const {userId} = jwtDecode(token)
+      userService.getProfile(userId)
       navigate('/dashboard')
     }
+    // if (cookies) {
+      // navigate('/dashboard')
+    // }
   }, [])
 
   const clearComponentState = {
@@ -82,16 +81,7 @@ export default function Home() {
             </header>
             <SocialButtons auth={component} />
             <Separator />
-            {
-              //#region LOGIN
-              component?.login && <Login set={handleChangeComponent} />
-              //#endregion
-            }
-            {
-              //#region REGISTER
-              component?.register && <Register set={handleChangeComponent} />
-              //#endregion
-            }
+            <FormsContainer component={component} handleChangeComponent={handleChangeComponent} />
           </main>
         )
       }

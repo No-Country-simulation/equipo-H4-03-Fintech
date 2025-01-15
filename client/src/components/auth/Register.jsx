@@ -78,14 +78,15 @@ export default function Register({ set }) {
       */}
       <section className="w-full flex flex-col-reverse items-center md:justify-between gap-3">
         <article className="flex gap-1 self-start items-baseline">
-          <input type="checkbox" name="remember" id="remember" />
-          <label htmlFor="remember">He leído los</label>
+          <input type="checkbox" name="terms" id="terms" />
+          <label htmlFor="terms">He leído los</label>
           <Link className="hover:underline self-end text-slate-400">términos y condiciones</Link>
         </article>
 
-        <article className="flex gap-1 self-start">
-          <input type="checkbox" name="remember" id="remember" />
-          <label htmlFor="remember">Recuérdame</label>
+        <article className="flex gap-1 self-start items-baseline">
+          <input type="checkbox" name="privacy" id="privacy" />
+          <label htmlFor="privacy">He leído los</label>
+          <Link className="hover:underline self-end text-slate-400">términos de privacidad</Link>
         </article>
       </section>
       {/*
