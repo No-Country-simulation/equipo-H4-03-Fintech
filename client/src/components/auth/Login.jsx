@@ -70,7 +70,7 @@ export default function Login({ set }) {
           <label htmlFor="remember">Recuérdame</label>
         </article>
 
-        <Link className="self-end hover:underline">Olvidé mi password</Link>
+        <Link to="/password-recovery" className="self-end hover:underline">Olvidé mi password</Link>
       </section>
       {/*
       //#region SUBMIT
@@ -84,7 +84,7 @@ export default function Login({ set }) {
       <div className="w-full h-[2px] bg-slate-400" />
 
       <section className="flex gap-2">
-        <span>¿No tienes cuenta ahún?</span>
+        <span>¿No tienes cuenta aún?</span>
         <button className=" hover:underline" onClick={() => set('register')}>registrarme</button>
       </section>
       {/* 

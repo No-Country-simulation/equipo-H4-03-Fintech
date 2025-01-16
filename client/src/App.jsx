@@ -3,6 +3,7 @@ import Home from "./pages/public/Home"
 import Onboarding from "./pages/public/Onboarding"
 import Beginning from "./components/onboarding/Beginning"
 import Dashboard from "./pages/private/Dashboard"
+import PasswordRecovery from "./pages/public/PasswordRecovery"
 
 const App = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const App = createBrowserRouter([
   {
     path: '/home',
     element: <Home />
+  },
+  {
+    path: '/password-recovery',
+    element: <PasswordRecovery />
   },
   {
     element: <Onboarding />,

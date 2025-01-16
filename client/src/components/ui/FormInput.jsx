@@ -1,4 +1,4 @@
-export default function FormInput({ label, name, value, handler, error }) {
+export default function FormInput({ label, name, value, handler, error,type }) {
   return (
     <article className="w-full flex flex-col gap-2">
       <span>{label}</span>
@@ -7,6 +7,7 @@ export default function FormInput({ label, name, value, handler, error }) {
         name={name}
         value={value}
         onChange={handler}
+        type={type}
       />
       {error && (
         <span className="text-destructive text-sm">
