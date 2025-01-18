@@ -23,14 +23,19 @@ public class CookieUtils {
     }
 
     public static void addCookie(HttpServletResponse response, String name, String value, int maxAge) {
-      Cookie cookie = new Cookie(name, value);
+        Cookie cookie = new Cookie(name, value);
         cookie.setPath("/");
-        cookie.setHttpOnly(false);
-        cookie.setSecure(true);
+        cookie.setHttpOnly(true); // Cambia a true si no necesitas que el cliente acceda a la cookie
+        cookie.setSecure(true); // Requiere HTTPS
         cookie.setMaxAge(maxAge);
-        response.addCookie( cookie );
 
-
+        response.addHeader("Set-Cookie",
+                String.format("%s=%s; Path=%s; HttpOnly; Secure; Max-Age=%d; SameSite=None;Partitioned",
+                        cookie.getName(),
+                        cookie.getValue(),
+                        cookie.getPath(),
+                        cookie.getMaxAge()
+                ));
     }
 
     public static void deleteCookie(HttpServletRequest request, HttpServletResponse response, String name) {
@@ -45,6 +50,7 @@ public class CookieUtils {
                 }
             }
         }
+
     }
 
 
