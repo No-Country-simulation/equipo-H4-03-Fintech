@@ -28,7 +28,7 @@ public class GoalController {
     private final GoalMapper mapper;
 
     //Búsqueda de objetivo por id
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<GoalResponseDTO> findById(@PathVariable("id") String goalId) {
         return ResponseEntity.ok(mapper.toGoalResponseDTO(service.findById(goalId)));
     }

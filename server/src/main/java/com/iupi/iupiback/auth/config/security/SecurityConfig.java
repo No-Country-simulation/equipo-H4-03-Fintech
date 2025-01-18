@@ -2,6 +2,8 @@ package com.iupi.iupiback.auth.config.security;
 
 import com.iupi.iupiback.auth.config.security.filter.JwtAuthenticationFilter;
 import com.iupi.iupiback.auth.config.security.oauth2.*;
+import com.iupi.iupiback.common.endpoints.GoalEndpoints;
+import com.iupi.iupiback.common.endpoints.PublicEndpoints;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,22 +53,6 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     private final AuthenticationProvider authenticationProvider;
-    private static final String[] AUTH_ENDPOINTS_PUBLIC = {
-            "/api/auth/login",
-            "/api/auth/register",
-            "/api/auth/check-login",
-            "/api/auth/login/oauth",
-            "/oauth2/callback/**",
-            "/oauth2/callback/google",
-            "/oauth2/callback/google/**",
-            "/api/auth/oauth2/authorize/**",
-            "/api/auth/recover-password/**",
-            "/api/auth/validate-reset-code/**",
-            "/api/auth/reset-password/**",
-            "/swagger-ui/**",
-            "/v3/api-docs/**",
-            "/swagger-ui.html"
-    };
 
     public SecurityConfig(HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository, CustomOAuth2UserService customOAuth2UserService, ClientRegistrationRepository clientRegistrationRepository, OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler, OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler, JwtAuthenticationFilter jwtAuthenticationFilter, AuthenticationProvider authenticationProvider) {
         this.httpCookieOAuth2AuthorizationRequestRepository = httpCookieOAuth2AuthorizationRequestRepository;
@@ -84,14 +70,14 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable) // Updated CSRF configuration
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers(AUTH_ENDPOINTS_PUBLIC).permitAll();
-                    auth.requestMatchers(HttpMethod.GET,"/api/auth/logout").hasAuthority("INVESTOR");
+                    auth.requestMatchers(PublicEndpoints.AUTH_ENDPOINTS_PUBLIC).permitAll();                    auth.requestMatchers(HttpMethod.GET,"/api/auth/logout").hasAuthority("INVESTOR");
                     auth.requestMatchers(HttpMethod.PUT,"/api/users/change-password").hasAuthority("INVESTOR");
                     auth.requestMatchers(HttpMethod.PUT,"/api/users").hasAuthority("INVESTOR");
-                    auth.requestMatchers(HttpMethod.GET,"/api/goals").hasAuthority("INVESTOR");
-                    auth.requestMatchers(HttpMethod.PUT,"/api/goals/**").hasAuthority("INVESTOR");
-                    auth.requestMatchers(HttpMethod.GET,"/api/goals/**").hasAuthority("INVESTOR");
-                    auth.requestMatchers(HttpMethod.POST,"/api/goals").hasAuthority("INVESTOR");
+                    auth.requestMatchers(HttpMethod.GET,GoalEndpoints.READ_GOALS).hasAuthority("INVESTOR");
+                    auth.requestMatchers(HttpMethod.PUT,GoalEndpoints.UPDATE_GOAL).hasAuthority("INVESTOR");
+                    auth.requestMatchers(HttpMethod.GET,GoalEndpoints.GET_GOAL).hasAuthority("INVESTOR");
+                    auth.requestMatchers(HttpMethod.POST,GoalEndpoints.WRITE_GOALS).hasAuthority("INVESTOR");
+                    auth.requestMatchers(HttpMethod.DELETE,GoalEndpoints.DELETE_GOAL).hasAuthority("INVESTOR");
                     auth.requestMatchers(HttpMethod.GET,"/api/surveys").hasAuthority("INVESTOR");
                     
                     auth.anyRequest().denyAll();
