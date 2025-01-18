@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile Form</title>
+</head>
+<body>
+    <h1>Perfil de Usuario</h1>
+    <form action="{{ url_for('profile') }}" method="POST">
+        <label for="firstName">Nombre:</label><br>
+        <input type="text" id="firstName" name="first_name" required><br>
+
+        <label for="lastName">Apellido:</label><br>
+        <input type="text" id="lastName" name="last_name" required><br>
+
+        <label>Sexo:</label>
+        <div class="sex-buttons">
+            <input type="radio" id="sexM" name="sex" value="M" required>
+            <label for="sexM" class="sex-label">Masculino</label>
+
+            <input type="radio" id="sexF" name="sex" value="F">
+            <label for="sexF" class="sex-label">Femenino</label>
+
+            <input type="radio" id="sexO" name="sex" value="O">
+            <label for="sexO" class="sex-label">Otro</label>
+        </div><br>
+        
+        <label for="dob">Fecha de nacimiento:</label><br>
+        <input type="date" id="dob" name="date_of_birth" required><br>
+        
+        <input type="submit" value="Siguiente">
+    </form>
+</body>
+</html>

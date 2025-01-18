@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Risk Tolerance</title>
+</head>
+<body>
+    <h1>Tolerancia al Riesgo</h1>
+    <form action="{{ url_for('submit_profile') }}" method="POST">
+        <div class="badge">P3</div>
+        <div class="points">Puntos: 0</div>
+        
+        <!-- Risk Tolerance Questions -->
+        <div class="riskQuestion">
+            <label for="riskQuestion1">¿Qué tan cómodo te sientes con las fluctuaciones de valor en tus inversiones?</label><br>
+            <input type="radio" id="riskQuestion1" name="riskQuestion1" value="1"> Prefiero estabilidad y evitar pérdidas, aunque los retornos sean bajos.<br>
+            <input type="radio" id="riskQuestion1" name="riskQuestion1" value="2"> Estoy dispuesto a asumir algunos riesgos para obtener mayores ganancias.<br>
+            <input type="radio" id="riskQuestion1" name="riskQuestion1" value="3"> Estoy cómodo con riesgos altos para maximizar el potencial de retorno.<br>
+        </div>
+        
+        <div class="riskQuestion">
+            <label for="riskQuestion2">Si una inversión pierde un 20% de su valor en un mes, ¿qué harías?</label><br>
+            <input type="radio" id="riskQuestion2-1" name="riskQuestion2" value="1"> Retiraría mi dinero para evitar más pérdidas.<br>
+            <input type="radio" id="riskQuestion2-3" name="riskQuestion2" value="2"> Mantendría mi inversión y esperaría una recuperación.<br>
+            <input type="radio" id="riskQuestion2-5" name="riskQuestion2" value="3"> Compraría más de ese activo para aprovechar el precio bajo.<br>
+        </div>
+
+        <div class="riskQuestion">
+            <label for="riskQuestion3">¿Qué porcentaje de tus ingresos estás dispuesto a destinar a inversiones de alto riesgo?</label><br>
+            <input type="radio" id="riskQuestion3-1" name="riskQuestion3" value="1"> Menos del 10%.<br>
+            <input type="radio" id="riskQuestion3-2" name="riskQuestion3" value="2"> Entre el 10% y el 30%.<br>
+            <input type="radio" id="riskQuestion3-3" name="riskQuestion3" value="3"> Más del 30%.<br>       
+        </div>
+
+        <div class="riskQuestion">
+            <label for="riskQuestion4">¿Te gustaría operar con instrumentos de alto riesgo como apalancamiento o futuros?</label><br>
+            <input type="radio" id="riskQuestion4-1" name="riskQuestion4" value="1"> No estoy interesado.<br>
+            <input type="radio" id="riskQuestion4-2" name="riskQuestion4" value="2"> Tal vez en el futuro.<br>
+            <input type="radio" id="riskQuestion4-3" name="riskQuestion4" value="3"> Sí, me interesa operar con ellos.<br>       
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-bar-inner" style="width: 75%;"></div>
+        </div>
+        
+        <input type="submit" value="Siguiente" class="level-up">
+    </form>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultado del Cuestionario Financiero</title>
+</head>
+<body>
+    <div class="result-box">
+        <h2>Resultados del Cuestionario</h2>
+        <p><strong>Nivel de Riesgo:</strong> {{ risk }}</p>
+        <p><strong>Puntuación Total:</strong> {{ total_score }}</p>
+        
+        <div class="recommendation">
+            <h3>Recomendaciones:</h3>
+            {% if risk == 'Conservador' %}
+                <p><strong>Activos recomendados:</strong> ETFs, bonos del Tesoro, fondos indexados, acciones de empresas estables (blue chips).</p>
+                <p><strong>Estrategia:</strong> Foco en diversificación y crecimiento lento pero seguro.</p>
+                <p><strong>Advertencias:</strong> Limitar exposición a activos volátiles como criptomonedas o derivados.</p>
+            {% elif risk == 'Moderado' %}
+                <p><strong>Activos recomendados:</strong> ETFs, bonos del Tesoro, fondos indexados, acciones de empresas estables (blue chips).</p>
+                <p><strong>Estrategia:</strong> Balance entre seguridad y oportunidades de crecimiento.</p>
+                <p><strong>Advertencias:</strong> Evaluar bien las estrategias antes de operar con apalancamiento.</p>
+            {% elif risk == 'Agressivo' %}
+                <p><strong>Activos recomendados:</strong> Acciones de empresas en crecimiento, criptomonedas, derivados.</p>
+                <p><strong>Estrategia:</strong> Foco en oportunidades de crecimiento y alta rentabilidad.</p>
+                <p><strong>Advertencias:</strong> Alto riesgo de pérdida, no apto para inversores conservadores.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

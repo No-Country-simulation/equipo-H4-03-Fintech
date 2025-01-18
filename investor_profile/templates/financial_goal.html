@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Financial Goals</title>
+</head>
+<body>
+    <h1>Objetivos Financieros</h1>
+    <form action="{{ url_for('submit_profile') }}" method="POST">
+        <div class="badge">P2</div>
+        <div class="points">Puntos: 0</div>
+        
+        <!-- Financial Goal Questions -->
+        <div class="question">
+            <label for="question1">¿Cuál es tu principal objetivo financiero al usar esta app?</label><br>
+            <input type="radio" id="question1-1" name="question1" value="1"> Ahorrar para metas a corto o mediano plazo.<br>
+            <input type="radio" id="question1-2" name="question1" value="2"> Construir un portafolio de inversión a largo plazo.<br>
+            <input type="radio" id="question1-3" name="question1" value="3"> Obtener ganancias rápidas a través del trading.<br>
+            <input type="radio" id="question1-4" name="question1" value="2"> Generar ingresos adicionales para complementar mis finanzas.<br>
+        </div>
+        
+        <div class="question">
+            <label for="question2">¿Tienes una meta específica en mente para tus ahorros o inversiones?</label><br>
+            <input type="radio" id="question2-1" name="question2" value="1"> Sí, quiero ahorrar para un objetivo específico (ej., casa, auto, viaje).<br>
+            <input type="radio" id="question2-2" name="question2" value="3"> No, mi prioridad es construir capital sin una meta definida.<br>
+            <input type="radio" id="question2-3" name="question2" value="2"> Quiero planificar mi retiro.<br>
+
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-bar-inner" style="width: 50%;"></div>
+        </div>
+        
+        <input type="submit" value="Siguiente" class="level-up">
+    </form>
+</body>
+</html>

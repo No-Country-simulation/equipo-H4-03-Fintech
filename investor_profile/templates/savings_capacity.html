@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Savings Capacity</title>
+</head>
+<body>
+    <h1>Capacidad de Ahorro</h1>
+    <form action="{{ url_for('submit_profile') }}" method="POST">
+        <div class="badge">P4</div>
+        <div class="points">Puntos: 0</div>
+        
+        <!-- Saving Capacity savingsquestions -->
+        <div class="savingsquestion">
+            <label for="savingsquestion1">¿Cuál es tu ingreso mensual estimado?</label><br>
+            <input type="radio" id="savingsquestion1-1" name="savingsquestion1" value="1"> Menos de $500 USD.<br>
+            <input type="radio" id="savingsquestion1-2" name="savingsquestion1" value="2"> Entre $500 y $1,000 USD.<br>
+            <input type="radio" id="savingsquestion1-3" name="savingsquestion1" value="2"> Entre $1,000 y $5,000 USD.<br>
+            <input type="radio" id="savingsquestion1-4" name="savingsquestion1" value="3"> Más de $5,000 USD.<br>
+        </div>
+        
+        <div class="savingsquestion">
+            <label for="savingsquestion2">¿Cuánto de tus ingresos mensuales destinas actualmente a ahorro o inversiones?</label><br>
+            <input type="checkbox" id="savingsquestion2-1" name="savingsquestion2" value="1"> Menos del 5%.<br>
+            <input type="checkbox" id="savingsquestion2-2" name="savingsquestion2" value="2"> Entre el 5% y el 15%.<br>
+            <input type="checkbox" id="savingsquestion2-3" name="savingsquestion2" value="3"> Más del 30%.<br>        </div>
+
+        <div class="progress-bar">
+            <div class="progress-bar-inner" style="width: 100%;"></div>
+        </div>
+        
+        <input type="submit" value="Siguiente" class="level-up">
+    </form>
+</body>
+</html>

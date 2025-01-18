@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Financial Knowledge</title>
+</head>
+<body>
+    <h1>Nivel de Conocimientos Financieros</h1>
+    <form action="{{ url_for('financial_knowledge') }}" method="POST">
+        <div class="badge">P1</div>
+        <div class="points">Puntos: 0</div>
+        
+        <!-- Financial Knowledge Questions -->
+        <div class="question">
+            <label for="question1">¿Cuánto conoces sobre inversiones y finanzas personales?</label><br>
+            <input type="radio" id="question1-1" name="question1" value="1"> Soy principiante, no tengo experiencia previa.<br>
+            <input type="radio" id="question1-2" name="question1" value="1"> Tengo conocimientos básicos, entiendo algunos conceptos.<br>
+            <input type="radio" id="question1-3" name="question1" value="3"> Tengo experiencia moderada y he invertido en algunos instrumentos.<br>
+            <input type="radio" id="question1-4" name="question1" value="3"> Tengo experiencia avanzada y manejo estrategias complejas.<br>
+        </div>
+        
+        <div class="question">
+            <label for="question2">¿Qué instrumentos financieros conoces o has utilizado?</label><br>
+            <input type="checkbox" id="question2-1" name="question2" value="1"> Cuentas de ahorro y plazos fijos.<br>
+            <input type="checkbox" id="question2-2" name="question2" value="1"> ETFs y fondos indexados.<br>
+            <input type="checkbox" id="question2-3" name="question2" value="2"> Acciones de empresas.<br>
+            <input type="checkbox" id="question2-4" name="question2" value="3"> Criptomonedas.<br>
+            <input type="checkbox" id="question2-5" name="question2" value="3"> Derivados financieros (futuros, opciones, apalancamientos).<br>
+        </div>
+
+        <div class="question">
+            <label for="question3">¿Sabes cómo interpretar gráficos o análisis de mercado financiero?</label><br>
+            <input type="radio" id="question3-1" name="question3" value="1"> No, no los entiendo.<br>
+            <input type="radio" id="question3-2" name="question3" value="2"> Conozco lo básico, pero necesito apoyo para analizarlos.<br>
+            <input type="radio" id="question3-3" name="question3" value="3"> Sí, los utilizo regularmente en mis decisiones.<br>       
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-bar-inner" style="width: 25%;"></div>
+        </div>
+        
+        <input type="submit" value="Siguiente" class="level-up">
+    </form>
+</body>
+</html>
