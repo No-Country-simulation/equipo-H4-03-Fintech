@@ -2,8 +2,7 @@ package com.iupi.iupiback.auth.config.security;
 
 import com.iupi.iupiback.auth.config.security.filter.JwtAuthenticationFilter;
 import com.iupi.iupiback.auth.config.security.oauth2.*;
-import com.iupi.iupiback.common.endpoints.GoalEndpoints;
-import com.iupi.iupiback.common.endpoints.PublicEndpoints;
+import com.iupi.iupiback.common.endpoints.*;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,16 +69,51 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable) // Updated CSRF configuration
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers(PublicEndpoints.AUTH_ENDPOINTS_PUBLIC).permitAll();                    auth.requestMatchers(HttpMethod.GET,"/api/auth/logout").hasAuthority("INVESTOR");
+                    auth.requestMatchers(PublicEndpoints.AUTH_ENDPOINTS_PUBLIC).permitAll();
+                    auth.requestMatchers(HttpMethod.GET,"/api/auth/logout").hasAuthority("INVESTOR");
                     auth.requestMatchers(HttpMethod.PUT,"/api/users/change-password").hasAuthority("INVESTOR");
                     auth.requestMatchers(HttpMethod.PUT,"/api/users").hasAuthority("INVESTOR");
+                    // Objetivos
                     auth.requestMatchers(HttpMethod.GET,GoalEndpoints.READ_GOALS).hasAuthority("INVESTOR");
                     auth.requestMatchers(HttpMethod.PUT,GoalEndpoints.UPDATE_GOAL).hasAuthority("INVESTOR");
                     auth.requestMatchers(HttpMethod.GET,GoalEndpoints.GET_GOAL).hasAuthority("INVESTOR");
                     auth.requestMatchers(HttpMethod.POST,GoalEndpoints.WRITE_GOALS).hasAuthority("INVESTOR");
                     auth.requestMatchers(HttpMethod.DELETE,GoalEndpoints.DELETE_GOAL).hasAuthority("INVESTOR");
-                    auth.requestMatchers(HttpMethod.GET,"/api/surveys").hasAuthority("INVESTOR");
-                    
+                    // Encuestas
+                    auth.requestMatchers(HttpMethod.GET, SurveyEndpoints.GET_SURVEY).hasAuthority("INVESTOR");
+                    auth.requestMatchers(HttpMethod.POST,SurveyEndpoints.UPDATE_SURVEY).hasAuthority("ADMIN");
+                    auth.requestMatchers(HttpMethod.GET,SurveyEndpoints.LIST_SURVEY).hasAuthority("ADMIN");
+                    auth.requestMatchers(HttpMethod.PUT,SurveyEndpoints.UPDATE_SURVEY).hasAuthority("ADMIN");
+                    auth.requestMatchers(HttpMethod.DELETE,SurveyEndpoints.DELETE_SURVEY).hasAuthority("ADMIN");
+                    auth.requestMatchers(HttpMethod.POST, SurveyEndpoints.CREATE_SURVEY).hasAuthority("ADMIN");
+                    // Preguntas
+                    auth.requestMatchers(HttpMethod.GET, QuestionEndpoints.LIST_QUESTIONS).hasAuthority("INVESTOR");
+                    auth.requestMatchers(HttpMethod.POST,QuestionEndpoints.CREATE_QUESTIONS).hasAuthority("ADMIN");
+                    auth.requestMatchers(HttpMethod.DELETE,QuestionEndpoints.DELETE_QUESTIONS).hasAuthority("ADMIN");
+                    auth.requestMatchers(HttpMethod.PUT,QuestionEndpoints.UPDATE_QUESTIONS).hasAuthority("ADMIN");
+                    auth.requestMatchers(HttpMethod.GET,QuestionEndpoints.GET_QUESTIONS).hasAuthority("ADMIN");
+                    auth.requestMatchers(HttpMethod.GET, QuestionEndpoints.LIST_ALL_QUESTIONS).hasAuthority("ADMIN");
+                    //Opciones de Respuestas
+                    auth.requestMatchers(HttpMethod.POST, AnswerEndpoints.CREATE_ANSWERS).hasAuthority("ADMIN");
+                    auth.requestMatchers(HttpMethod.PUT,AnswerEndpoints.UPDATE_ANSWERS).hasAuthority("ADMIN");
+                    auth.requestMatchers(HttpMethod.GET,AnswerEndpoints.GET_ANSWERS).hasAuthority("ADMIN");
+                    auth.requestMatchers(HttpMethod.DELETE,AnswerEndpoints.DELETE_ANSWERS).hasAuthority("ADMIN");
+                    auth.requestMatchers(HttpMethod.GET,AnswerEndpoints.LIST_ANSWERS).hasAuthority("ADMIN");
+                    // TODO: Listar respuestas por pregunta(Verificar si es necesario)
+
+                    //Flujo de Dinero
+                    auth.requestMatchers(HttpMethod.GET, FlowMoneyEndpoints.LIST_FLOW_MONEY).hasAuthority("INVESTOR");
+                    auth.requestMatchers(HttpMethod.POST,FlowMoneyEndpoints.CREATE_FLOW_MONEY).hasAuthority("INVESTOR");
+                    auth.requestMatchers(HttpMethod.PUT,FlowMoneyEndpoints.UPDATE_FLOW_MONEY).hasAuthority("INVESTOR");
+                    auth.requestMatchers(HttpMethod.DELETE,FlowMoneyEndpoints.DELETE_FLOW_MONEY).hasAuthority("INVESTOR");
+                    auth.requestMatchers(HttpMethod.GET,FlowMoneyEndpoints.LIST_ALL_FLOW_MONEY).hasAuthority("ADMIN");
+
+                    //Perfil Financiero
+                    auth.requestMatchers(HttpMethod.POST,FinancialProfileEndpoints.CREATE_FINANCIAL_PROFILE).hasAuthority("INVESTOR");
+                    auth.requestMatchers(HttpMethod.PUT,FinancialProfileEndpoints.UPDATE_FINANCIAL_PROFILE).hasAuthority("INVESTOR");
+                    auth.requestMatchers(HttpMethod.GET, FinancialProfileEndpoints.GEY_MY_FINANCIAL_PROFILE).hasAuthority("INVESTOR");
+                    auth.requestMatchers(HttpMethod.GET,FinancialProfileEndpoints.LIST_ALL_FINANCIAL_PROFILES).hasAuthority("ADMIN");
+                    auth.requestMatchers(HttpMethod.GET,FinancialProfileEndpoints.GET_FINANCIAL_PROFILE).hasAuthority("ADMIN");
                     auth.anyRequest().denyAll();
                 })
                  .oauth2Login(oauth2 -> {
