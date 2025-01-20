@@ -1,0 +1,9 @@
+{
+  "user_profile": {
+    "name": "Alice",
+    "age": "30",
+    "income": "50000",
+    "risk_tolerance": "low",
+    "goals": "saving for a house and retirement"
+  }
+}
