@@ -32,21 +32,20 @@ def recommend():
         # Extract necessary fields from the user's profile
         name = user_profile.get("name")
         age = user_profile.get("age", "Unknown")
-        income = user_profile.get("income")
         risk_tolerance = user_profile.get("risk_tolerance")
-        goals = user_profile.get("goals")
         
-        # Create a prompt using the user's profile, explicitly asking for Spanish
-        prompt = (f"Proporciona una recomendación financiera personalizada para {name}, que tiene {age} años. {name} tiene un ingreso anual de ${income} y una tolerancia al riesgo de {risk_tolerance}. Los objetivos financieros de {name} son: {goals}. Proporciona un párrafo corto en español con consejos específicos y acciones prácticas.")
+        # Prepare the prompt for AI21 chat completion
+        system = "Tu eres un asesor financiero."
+        user = f"Hola, soy {name} y tengo {age} años. Mi tolerancia al riesgo es {risk_tolerance}. ¿Qué me recomiendas?. Has una lista personalizada de tres consejos financieros."
 
         # Prepare messages for AI21 chat completion
         messages = [
-            ChatMessage(content="Eres un asesor financiero.", role="system"),
-            ChatMessage(content=prompt, role="user")
+            ChatMessage(content=system, role="system"),
+            ChatMessage(content=user, role="user")
         ]
 
         # Log the prompt
-        logging.info(f"Prompt: {prompt}")
+        logging.info(f"Prompt: {user}")
 
         # Use the client to make the API call for chat completion
         response = ai21_client.chat.completions.create(
