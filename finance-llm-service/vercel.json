@@ -1,16 +1,9 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "Dockerfile",
-        "use": "@vercel/docker"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "/"
-      }
-    ]
-  }
-  
+  "version": 2,
+  "builds": [
+    { "src": "recommend.py", "use": "@vercel/python" }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/recommend.py" }
+  ]
+}
