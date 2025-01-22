@@ -2,11 +2,15 @@ import z from 'zod'
 
 export const registerFormSchema = z.object({
   name: z
-    .string({ message: 'Requerido.' })
+    .string()
+    .min(3, { message: 'Nombre completo Requerido.' })
     .trim(),
   email: z
-    .string({ message: 'Requerido.' })
-    .trim(),
+    .string()
+    .email({ message: 'Email inválido' })
+    .min(1, { message: 'Email es requerido' })
+    .trim()
+    .toLowerCase(),
   password: z
     .string()
     .min(8, { message: 'Debe tener un mínimo de 8 caracteres' })
@@ -34,8 +38,11 @@ export const registerFormSchema = z.object({
 
 export const loginFormSchema = z.object({
   email: z
-    .string({ message: 'Requerido.' })
-    .trim(),
+    .string()
+    .email({ message: 'Email inválido' })
+    .min(1, { message: 'Email es requerido' })
+    .trim()
+    .toLowerCase(),
   password: z
     .string()
     .min(8, { message: 'Debe tener un mínimo de 8 caracteres' })

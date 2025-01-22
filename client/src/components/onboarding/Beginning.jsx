@@ -7,7 +7,7 @@ export default function Beginning () {
       <p className="w-80 text-wrap">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium reprehenderit vitae reiciendis beatae ipsam minus corrupti deserunt dicta quam explicabo?
       </p>
-      <Link className="border border-slate-300 px-6 py-2 rounded-3xl">Comenzar</Link>
+      <Link to="/onboarding/profile" className="border border-slate-300 px-6 py-2 rounded-3xl">Comenzar</Link>
     </main>
   )
 }

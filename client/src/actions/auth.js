@@ -1,4 +1,3 @@
-/* global google */
 import { loginFormSchema, registerFormSchema } from '../../lib/definitions'
 import authService from '../services/auth.service'
 

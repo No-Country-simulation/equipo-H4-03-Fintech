@@ -79,7 +79,7 @@ export default function Login({ set }) {
         name={"email"}
         value={formData.email}
         handler={handleChange}
-        error={state?.email}
+        errors={state?.email}
       />
       {/* 
       //#endregion
