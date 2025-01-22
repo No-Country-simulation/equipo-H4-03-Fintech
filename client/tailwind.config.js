@@ -1,9 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    darkMode: ["class"],
-    content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
+  darkMode: ["class"],
+  content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
   theme: {
     extend: {
+      boxShadow: {
+        form: '0 2px 4px rgba(0, 0, 0, 0.1)',
+        custom1: '0 0 0 2px rgba(0,82,204,0.2)'
+      },
       animation: {
         'marquee': 'marquee 5s linear infinite',
       },
@@ -14,11 +18,13 @@ module.exports = {
         },
       },
       borderRadius: {
-        lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)'
+        xl: 'var(--radius)',
+        lg: 'calc(var(--radius) - 4px)',
+        md: 'calc(var(--radius) - 8px)',
+        sm: 'calc(var(--radius) - 12px)'
       },
       colors: {
+        'ligth-gray': '#EFEFEF',
         background: 'var(--background)',
         foreground: 'var(--foreground)',
         card: {

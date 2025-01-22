@@ -24,13 +24,6 @@ export default function Register({ set }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(state);
-    console.log('terms');
-    console.log(typeof formData.terms);
-
-    console.log('policy');
-    console.log(typeof formData.policy);
-
     if (!state) return
     if (Array.isArray(state)) {
       if (state[0]) {
@@ -73,7 +66,7 @@ export default function Register({ set }) {
         name={"name"}
         value={formData.name}
         handler={handleChange}
-        error={state?.name}
+        errors={state?.name}
       />
       {/* 
       //#endregion
@@ -84,7 +77,7 @@ export default function Register({ set }) {
         name={"email"}
         value={formData.email}
         handler={handleChange}
-        error={state?.email}
+        errors={state?.email}
       />
       {/* 
       //#endregion

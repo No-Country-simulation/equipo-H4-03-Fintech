@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -18,7 +20,7 @@
     --muted-foreground: 215.4 16.3% 46.9%;
     --accent: hsl(210 40% 96.1%);
     --accent-foreground: hsl(222.2 47.4% 11.2%);
-    --destructive: 0 84.2% 60.2%;
+    --destructive: hsl(0 84.2% 60.2%);
     --destructive-foreground: hsl(210 40% 98%);
     --border: hsl(214.3 31.8% 91.4%);
     --input: hsl(214.3 31.8% 91.4%);
@@ -31,8 +33,9 @@
     --chart-5: hsl(27 87% 67%);
     --bg: hsl(214, 100%, 34%);
 
-    font-family: "Roboto";
   }
 }
 
-
+body {
+  font-family: 'Roboto', sans-serif;
+}

@@ -63,7 +63,7 @@ export default function Home() {
   }, [])
 
   return (
-    <main className={`w-dvw h-dvh flex flex-col items-center justify-center p-0 m-0 ${component.home ? "bg-primary" : ""}`}>
+    <main className={`w-dvw min-h-dvh flex flex-col items-center justify-center p-0 m-0 ${component.home ? "bg-primary" : ""}`}>
       {
         //#region LOGO
         component?.home && (
