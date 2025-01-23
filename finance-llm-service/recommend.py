@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from ai21 import AI21Client
 from ai21.models.chat import ChatMessage
 import os
@@ -10,6 +11,9 @@ load_dotenv()
 
 # Initialize the Flask application
 app = Flask(__name__)
+
+# Configure CORS
+CORS(app, resources={r"/recommend": {"origins": ["http://example.com", "http://another-site.com"]}})
 
 # Initialize the logger
 logging.basicConfig(level=logging.INFO)
