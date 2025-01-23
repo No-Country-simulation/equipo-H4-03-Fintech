@@ -1,3 +1,4 @@
 flask
 ai21
 python-dotenv
+gunicorn

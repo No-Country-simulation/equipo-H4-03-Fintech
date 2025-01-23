@@ -1,4 +1,5 @@
-FROM python:3.11
+# Description: Dockerfile for the finance-llm-service application
+FROM python:3.11-slim
 WORKDIR /finance-llm-service
 
 # Install the application dependencies
@@ -10,4 +11,4 @@ COPY . /finance-llm-service/
 EXPOSE 5000
 
 # Run the application
-CMD ["python", "recommend.py"]
+CMD ["gunicorn", "-b", "0.0.0.0:5000", "recommend:app"]
