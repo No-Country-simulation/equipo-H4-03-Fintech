@@ -1,6 +1,7 @@
 package com.iupi.iupiback.profiles.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.iupi.iupiback.profiles.models.enums.QuestionType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +24,9 @@ public class Question {
     private int id;
 
     private String question;
+
+    @Enumerated(EnumType.STRING)
+    private QuestionType questionType;
 
     @ManyToOne
     @JoinColumn(name = "survey_id", nullable = false,foreignKey = @ForeignKey(name = "FK_QUESTIONS_SURVEY"))

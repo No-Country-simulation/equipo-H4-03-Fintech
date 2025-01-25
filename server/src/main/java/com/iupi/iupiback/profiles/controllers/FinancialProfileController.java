@@ -2,9 +2,11 @@ package com.iupi.iupiback.profiles.controllers;
 
 import com.iupi.iupiback.auth.config.security.oauth2.users.CurrentUser;
 import com.iupi.iupiback.auth.config.security.oauth2.users.UserPrincipal;
+import com.iupi.iupiback.profiles.dto.request.AnswerRequestDTO;
 import com.iupi.iupiback.profiles.dto.request.FinancialProfileRequestDTO;
 import com.iupi.iupiback.profiles.dto.response.FinancialProfileResponseDTO;
 import com.iupi.iupiback.profiles.mapper.FinancialProfileMapper;
+
 import com.iupi.iupiback.profiles.services.IFinancialProfileService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -63,5 +65,10 @@ public class FinancialProfileController {
         List<FinancialProfileResponseDTO> list = service.getAllFinancialProfiles(page,size,sortField,sortOrder).stream().map(mapper::toFinancialProfileResponseDTO).collect(Collectors.toList());
         Page<FinancialProfileResponseDTO> listResponse = new PageImpl<>(list);
         return new ResponseEntity<>(listResponse, HttpStatus.OK);
+    }
+
+    @PostMapping("/{userId}/survey")
+    public ResponseEntity<FinancialProfileResponseDTO> saveSurveyAnswers(@PathVariable String userId, @RequestBody List<AnswerRequestDTO> answers){
+        return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toFinancialProfileResponseDTO(service.saveSurveyAnswers(userId,answers)));
     }
 }
