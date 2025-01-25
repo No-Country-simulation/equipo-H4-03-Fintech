@@ -44,10 +44,7 @@ public class FlowMoneyServiceImpl extends CRUDServiceImpl<FlowMoney,String> impl
     @Transactional
     @Override
     public FlowMoney saveTransactional(FlowMoneyRequestDTO flowMoney, String userId) {
-        FinancialProfile financialProfile = financialProfileRepo.findByUserId(userId);
-        if (financialProfile == null) {
-            throw new NotFoundException("Financial profile not found");
-        }
+        FinancialProfile financialProfile = financialProfileRepo.findByUserId(userId).orElseThrow();
         FlowMoney flowMoneyEntity = new FlowMoney();
         flowMoneyEntity.setFlowType(flowMoney.getFlowType());
         flowMoneyEntity.setFlowMoneyDescription(flowMoney.getFlowMoneyDescription());
