@@ -6,6 +6,7 @@ const initialState = {
   userId: "",
   username: "",
   isAuthenticated: false,
+  progress: 0
 };
 
 const userSlice = createSlice({
@@ -18,6 +19,7 @@ const userSlice = createSlice({
       state.userId = payload.userId
       state.username = payload.username
       state.isAuthenticated = true
+      state.progress = payload.progress
     },
     logoutUser: (state) => {
       state.firstName = ""

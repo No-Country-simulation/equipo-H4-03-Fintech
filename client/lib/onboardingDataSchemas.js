@@ -1,15 +1,15 @@
 import z from 'zod'
 
 export const profileFormSchema = z.object({
-  firstName: z
+  fullName: z
     .string()
     .min(2, { message: 'El nombre debe tener al menos 2 caracteres' })
-    .max(50, { message: 'El nombre no puede exceder 50 caracteres' })
+    .max(50, { message: 'El nombre no puede exceder 100 caracteres' })
     .regex(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/, {
       message: 'El nombre solo puede contener letras'
     })
     .trim(),
-  lastName: z
+  username: z
     .string()
     .min(2, { message: 'El apellido debe tener al menos 2 caracteres' })
     .max(50, { message: 'El apellido no puede exceder 50 caracteres' })
@@ -17,9 +17,17 @@ export const profileFormSchema = z.object({
       message: 'El apellido solo puede contener letras'
     })
     .trim(),
+  dni: z
+    .string()
+    .min(8, { message: 'El campo es requerido' })
+    .trim(),
+  sex: z
+    .string()
+    .min(4, { message: 'El campo es requerido' })
+    .trim(),
   birthdate: z
     .string()
-    .min(1, { message: 'La fecha de nacimiento es requerida' })
+    .min(1, { message: 'El campo es requerido' })
     .refine((date) => {
       const birthDate = new Date(date);
       const today = new Date();

@@ -6,15 +6,15 @@
 
 @layer base {
   :root {
-    --background: hsl(0 0% 100%);
+    --background: #f9f9fb;
     --foreground: hsl(222.2 84% 4.9%);
     --card: hsl(0 0% 100%);
     --card-foreground: hsl(222.2 84% 4.9%);
     --popover: hsl(0 0% 100%);
     --popover-foreground: hsl(222.2 84% 4.9%);
-    --primary: hsl(214, 100%, 34%);
+    --primary: #004AAC;
     --primary-foreground: hsl(210 40% 98%);
-    --secondary: hsl(210 40% 96.1%);
+    --secondary: #95c1db;
     --secondary-foreground: hsl(222.2 47.4% 11.2%);
     --muted: hsl(210 40% 96.1%);
     --muted-foreground: 215.4 16.3% 46.9%;
@@ -33,6 +33,20 @@
     --chart-5: hsl(27 87% 67%);
     --bg: hsl(214, 100%, 34%);
 
+    --blue: #004AAC;
+    --yellow: #ffa600;
+    --lightblue: #95c1db;
+    --gray: #787878;
+  }
+
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("/assets/triangle-down.svg");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    padding-right: 2.5rem;
   }
 }
 

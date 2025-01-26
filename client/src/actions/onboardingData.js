@@ -7,8 +7,9 @@ import {
 export async function Profile(state, formData) {
 
   const validatedFields = profileFormSchema.safeParse({
-    firstName: formData.get("firstName"),
-    lastName: formData.get("lastName"),
+    fullName: formData.get("fullName"),
+    username: formData.get("username"),
+    dni: formData.get("dni"),
     sex: formData.get("sex"),
     birthdate: formData.get("birthdate")
   })
