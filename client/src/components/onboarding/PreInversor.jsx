@@ -1,24 +1,25 @@
-import { useNavigate } from "react-router-dom";
-import SubtmitButton from "../ui/SubtmitButton";
+import { Link } from "react-router-dom";
+import SecondaryLink from "../ui/SecondaryLink";
+import OnboardingNavbar from "../ui/OnboardingNavbar";
 
 export default function PreInversor() {
-  
-  const navigate = useNavigate()
-  const handleSubmit = event => {
-    event.preventDefault()
-    navigate('/onboarding/financial-knowledge')
-  }
 
   return (
-    <main className="w-screen min-h-screen flex flex-col items-center justify-start bg-ligth-gray p-5 pt-[60px]">
-      <h1 className="text-title text-primary">Perfil de Inversor</h1>
-      <form
-        onSubmit={handleSubmit}
-        className="w-[600px] flex flex-col items-center gap-4 m-4 bg-white rounded-3xl p-8 shadow-form"
-      >
-        <div className="size-64 border-2 border-primary" />
-        <SubtmitButton value={"Siguiente"} />
-      </form>
+    <main className="w-screen min-h-screen flex flex-col items-center justify-start bg-white p-5 pt-[60px]">
+      <section className="w-80 flex flex-col items-center gap-5">
+        <OnboardingNavbar close={false} />
+        <img src="/assets/user-badge.svg" alt="user badge image" />
+        <h1 className="text-title">Test de Inversor</h1>
+        <p className="text-wrap text-center">
+          Necesitamos algunos detalles para optimizar tus recomendaciones y asegurar tu cuenta. Este proceso solo te tomará unos minutos.
+        </p>
+        <Link to="/onboarding/financial-knowledge"
+          className="w-full text-center text-white bg-primary px-6 py-3 mt-10 text-base font-medium rounded-3xl cursor-pointer"
+        >
+          Empesar ahora
+        </Link>
+        <SecondaryLink label={'Más tarde'} to={'/dashboard'} />
+      </section>
     </main>
   )
 }

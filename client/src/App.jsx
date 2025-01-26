@@ -4,13 +4,20 @@ import Onboarding from "./pages/private/Onboarding"
 import Beginning from "./components/onboarding/Beginning"
 import Dashboard from "./pages/private/Dashboard"
 import Profile from "./components/onboarding/OnboardinProfile"
-import Identification from "./components/onboarding/OnboardinIdentification"
-import Address from "./components/onboarding/OnboardinAddress"
-import FinancialKnowledge from "./components/onboarding/FinancialKnowledge"
+import OnboardingLocation from "./components/onboarding/OnboardinLocation"
+import FinancialKnowledge from "./components/onboarding/FinancialKnowledge/Index"
 import PreInversor from "./components/onboarding/PreInversor"
-import FinancialGoal from "./components/onboarding/FinancialGoal"
-import RiskTolerance from "./components/onboarding/RiskTolerance"
+import FinancialGoal from "./components/onboarding/FinancialGoal/Index"
+import RiskTolerance from "./components/onboarding/RiskTolerance/Index"
 import SavingsCapacity from "./components/onboarding/SavingsCapacity"
+import TestInversorResult from "./components/onboarding/Result"
+import FinancialLevel from "./components/onboarding/FinancialKnowledge/Level"
+import FinancialInstruments from "./components/onboarding/FinancialKnowledge/FinancialInstruments"
+import InterpretGraphics from "./components/onboarding/FinancialKnowledge/InterpretGraphics"
+import MainPorpouse from "./components/onboarding/FinancialGoal/MainPorpouse"
+import MainGoal from "./components/onboarding/FinancialGoal/MainGoal"
+import Fluctuations from "./components/onboarding/RiskTolerance/Fluctuations"
+import Percentages from "./components/onboarding/RiskTolerance/Percentages"
 
 const App = createBrowserRouter([
   {
@@ -35,12 +42,8 @@ const App = createBrowserRouter([
         element: <Profile />
       },
       {
-        path: '/onboarding/identification',
-        element: <Identification />
-      },
-      {
-        path: '/onboarding/address',
-        element: <Address />
+        path: '/onboarding/location',
+        element: <OnboardingLocation />
       },
       {
         path: '/onboarding/pre-investor',
@@ -48,19 +51,57 @@ const App = createBrowserRouter([
       },
       {
         path: '/onboarding/financial-knowledge',
-        element: <FinancialKnowledge />
+        element: <FinancialKnowledge />,
+        children: [
+          {
+            path: '/onboarding/financial-knowledge/',
+            element: <FinancialLevel />
+          },
+          {
+            path: '/onboarding/financial-knowledge/instruments',
+            element: <FinancialInstruments />
+          },
+          {
+            path: '/onboarding/financial-knowledge/graphics',
+            element: <InterpretGraphics />
+          },
+        ]
       },
       {
         path: '/onboarding/financial-goal',
-        element: <FinancialGoal />
+        element: <FinancialGoal />,
+        children: [
+          {
+            path: '/onboarding/financial-goal/',
+            element: <MainPorpouse />,
+          },
+          {
+            path: '/onboarding/financial-goal/goal',
+            element: <MainGoal />,
+          }
+        ]
       },
       {
         path: '/onboarding/risk-tolerance',
-        element: <RiskTolerance />
+        element: <RiskTolerance />,
+        children: [
+          {
+            path: '/onboarding/risk-tolerance/',
+            element: <Fluctuations />
+          },
+          {
+            path: '/onboarding/risk-tolerance/percentages',
+            element: <Percentages />
+          }
+        ]
       },
       {
         path: '/onboarding/savings-capacity',
         element: <SavingsCapacity />
+      },
+      {
+        path: '/onboarding/test-result',
+        element: <TestInversorResult />
       }
     ]
   },

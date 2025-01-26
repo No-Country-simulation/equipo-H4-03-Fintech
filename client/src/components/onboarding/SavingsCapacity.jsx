@@ -1,138 +1,157 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import FinancialProgressBar from "../ui/FinancialProgressBar";
-import SecondaryLink from "../ui/SecondaryLink";
 import SubtmitButton from "../ui/SubtmitButton";
-import QuestionRadio from "../ui/QuestionRadio";
 import QuestionsContainer from "../ui/QuestionsContainer";
-import QuestionCheckbox from "../ui/QuestionCheckbox";
+import CheckSelectionButton from "../ui/CheckSelectionButton";
+import { useNavigate } from "react-router-dom";
+import OnboardingProgressBar from "../ui/OnboardingProgressBar";
+import OnboardingNavbar from "../ui/OnboardingNavbar";
 
 export default function SavingsCapacity() {
-
-  const initialFormState = {
-    question1: null,
-    question2: [],
+  const initialFormState1 = {
+    question1: false,
+    question2: false,
+    question3: false,
+    question4: false,
   }
-  const [formData, setFormData] = useState(initialFormState)
-  const handleRadioChange = ({ target: { name, value } }) => {
-    setFormData(prev => ({
+  const [formData1, setFormData1] = useState(initialFormState1)
+  const handleChange1 = name => {
+    setFormData1(() => initialFormState1)
+    setFormData1(prev => ({
       ...prev,
-      [name]: value
+      [name]: !prev[name]
     }))
   }
-
-  const handleCheckboxChange = (e) => {
-    const { name, value, checked } = e.target
-    setFormData(prev => ({
+  const initialFormState2 = {
+    question1: false,
+    question2: false,
+    question3: false,
+    question4: false,
+  }
+  const [formData2, setFormData2] = useState(initialFormState2)
+  const handleChange2 = name => {
+    setFormData2(() => initialFormState2)
+    setFormData2(prev => ({
       ...prev,
-      [name]: checked
-        ? [...prev[name], value]
-        : prev[name].filter(item => item !== value)
+      [name]: !prev[name]
     }))
   }
 
   const navigate = useNavigate()
-  const initialErrorsState = {
-    question1: false,
-    question2: false,
+  const [errors1, setErrors1] = useState(false)
+  const [errors2, setErrors2] = useState(false)
+  const checkErrors = (form) => {
+    return !form.question1 && !form.question2
+      && !form.question3 && !form.question4
   }
-  const [errors, setErrors] = useState(initialErrorsState)
   const handleSubmit = event => {
     event.preventDefault()
-
-    const question1 = formData.question1 === null
-    const question2 = formData.question2.length === 0
-
-    if (question1 | question2) {
-      setErrors({
-        question1,
-        question2,
-      })
-      return
-    } else if (!question1 && !question2) {
-      setErrors(initialErrorsState)
-      navigate('/dashboard')
-    }
+    const hasErrors1 = checkErrors(formData1)
+    const hasErrors2 = checkErrors(formData2)
+    setErrors1(hasErrors1)
+    setErrors2(hasErrors2)
+    if (hasErrors1 || hasErrors2) return
+    navigate('/onboarding/test-result');
   }
-
 
   return (
     <main className="w-screen min-h-screen flex flex-col items-center justify-start bg-ligth-gray p-5 pt-[60px]">
-      <header className="text-title text-primary">Capacidad de Ahorro</header>
+      <OnboardingNavbar close={true} />
+      <OnboardingProgressBar />
+      <header className="text-title">Preferencia de riesgo</header>
       <form
         onSubmit={handleSubmit}
-        className="w-[600px] flex flex-col items-start gap-4 m-4 bg-white rounded-3xl p-8 shadow-form"
+        className="w-[600px] flex flex-col items-start gap-4 m-4"
       >
-        <div className="self-end px-4 py-2 font-bold bg-[#FFD700] rounded-sm">P4</div>
         <QuestionsContainer
           title={"¿Cuál es tu ingreso mensual estimado?"}
         >
-          <QuestionRadio
-            title={"Menos de $500 USD."}
-            name={"question1"}
-            value={"1"}
-            checked={formData.question1 === "1"}
-            handler={handleRadioChange}
+          {/* 
+      //#region OPTION 1-1
+        */}
+          <CheckSelectionButton
+            content={'Menos de $500 USD'}
+            handler={handleChange1}
+            name={'question1'}
+            value={formData1.question1}
           />
-          <QuestionRadio
-            title={"Entre $500 y $1,000 USD."}
-            name={"question1"}
-            value={"2"}
-            checked={formData.question1 === "2"}
-            handler={handleRadioChange}
+          {/* 
+      //#region OPTION 1-2
+        */}
+          <CheckSelectionButton
+            content={'Entre $500 y $1,000 USD'}
+            handler={handleChange1}
+            name={'question2'}
+            value={formData1.question2}
           />
-          <QuestionRadio
-            title={"Entre $1,000 y $5,000 USD."}
-            name={"question1"}
-            value={"3"}
-            checked={formData.question1 === "3"}
-            handler={handleRadioChange}
+          {/* 
+      //#region OPTION 1-3
+        */}
+          <CheckSelectionButton
+            content={'Entre $1,000 y $5,000 USD'}
+            handler={handleChange1}
+            name={'question3'}
+            value={formData1.question3}
           />
-          <QuestionRadio
-            title={"Más de $5,000 USD."}
-            name={"question1"}
-            value={"1"}
-            checked={formData.question1 === "4"}
-            handler={handleRadioChange}
+          {/* 
+      //#region OPTION 1-4
+        */}
+          <CheckSelectionButton
+            content={'Más de $5,000 USD'}
+            handler={handleChange1}
+            name={'question4'}
+            value={formData1.question4}
           />
-          {errors?.question1 && (
-            <span className="text-destructive text-sm">
-              Debes seleccionar una opción
-            </span>
-          )}
+          {
+            errors1 &&
+            <span className="text-destructive text-sm">Selecciona una opción</span>
+          }
         </QuestionsContainer>
 
         <QuestionsContainer
           title={"¿Cuánto de tus ingresos mensuales destinas actualmente a ahorro o inversiones?"}
         >
-          <QuestionCheckbox
-            title={"Menos del 5%."}
-            name={"question2"}
-            value={"1"}
-            handler={handleCheckboxChange}
+          {/* 
+      //#region OPTION 2-1
+        */}
+          <CheckSelectionButton
+            content={'Menos del 5%'}
+            name={'question1'}
+            handler={handleChange2}
+            value={formData2.question1}
           />
-          <QuestionCheckbox
-            title={"Entre el 5% y el 15%."}
-            name={"question2"}
-            value={"2"}
-            handler={handleCheckboxChange}
+          {/* 
+      //#region OPTION 2-2
+        */}
+          <CheckSelectionButton
+            content={'Entre el 5% y el 15%'}
+            name={'question2'}
+            handler={handleChange2}
+            value={formData2.question2}
           />
-          <QuestionCheckbox
-            title={"Más del 30%."}
-            name={"question2"}
-            value={"3"}
-            handler={handleCheckboxChange}
+          {/* 
+      //#region OPTION 2-3
+        */}
+          <CheckSelectionButton
+            content={'Entre el 15% y el 30%'}
+            name={'question3'}
+            handler={handleChange2}
+            value={formData2.question3}
           />
-          {errors?.question2 && (
-            <span className="text-destructive text-sm">
-              Debes seleccionar al menos una opción
-            </span>
-          )}
+          {/* 
+      //#region OPTION 2-4
+        */}
+          <CheckSelectionButton
+            content={'Más del 30%'}
+            name={'question4'}
+            handler={handleChange2}
+            value={formData2.question4}
+          />
+          {
+            errors2 &&
+            <span className="text-destructive text-sm">Selecciona una opción</span>
+          }
         </QuestionsContainer>
-        
-        <FinancialProgressBar points={4} />
         <SubtmitButton value={'Siguiente'} />
-        <SecondaryLink label={'Llenar más tarde'} to={'/dashboard'} />
       </form>
     </main>
   )

@@ -3,6 +3,11 @@ import { useNavigate } from "react-router-dom";
 import FormInputPrimary from "../ui/FormInputPrimary";
 import SubtmitButton from "../ui/SubtmitButton";
 import { Profile } from "../../actions/onboardingData";
+import BackArrow from "../ui/BackArrow";
+import OnboardingProgressBar from "../ui/OnboardingProgressBar";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "../../redux/slices/userSlices";
+import OnboardingNavbar from "../ui/OnboardingNavbar";
 
 export default function OnboardinProfile() {
 
@@ -10,8 +15,9 @@ export default function OnboardinProfile() {
   const [state, action] = useActionState(Profile, undefined)
 
   const initialState = {
-    firstName: "",
-    lastName: "",
+    fullName: "",
+    username: "",
+    dni: "",
     sex: "",
     birthdate: ""
   }
@@ -23,90 +29,92 @@ export default function OnboardinProfile() {
     })
   }
 
+  const user = useSelector(state => state.user)
+  const dispatch = useDispatch()
   useEffect(() => {
     if (!state) return
-    if (state.data) {
-      navigate('/onboarding/identification')
+    if (state.success) {
+      dispatch(setUser({
+        ...user,
+        progress: user.progress + 20
+      }))
+      navigate('/onboarding/location')
     }
   }, [state])
 
   return (
-    <main className="w-screen min-h-screen flex flex-col items-center justify-start bg-ligth-gray p-5 pt-10">
-      <header className="text-title text-primary">Perfil de Usuario</header>
+    <main className="w-screen min-h-screen flex flex-col items-center justify-center bg-white p-5 pt-10 relative ">
+      <OnboardingNavbar close={false} />
+      <OnboardingProgressBar />
       <form
         action={action}
-        className="w-[600px] flex flex-col items-start gap-4 m-4 bg-white rounded-3xl p-8 shadow-form"
+        className="w-[600px] flex flex-col items-start gap-4 m-4 p-8"
       >
+        <header className="text-title self-start">Datos personales</header>
+        {/* 
+      //#region NOMBRE
+        */}
         <FormInputPrimary
-          label={"Nombre"}
-          errors={state?.firstName}
+          label={"Nombre completo"}
+          errors={state?.fullName}
           handler={handleChange}
-          name={"firstName"}
-          value={formData.firstName}
+          name={"fullName"}
+          value={formData.fullName}
+          placeholder={"Ej. ej. María Eugenia Avalos"}
         />
+        {/* 
+      //#region USERNAME
+        */}
         <FormInputPrimary
-          label={"Apellido"}
-          errors={state?.lastName}
+          label={"Nombre de usuario"}
+          errors={state?.username}
           handler={handleChange}
-          name={"lastName"}
-          value={formData.lastName}
+          name={"username"}
+          value={formData.username}
+          placeholder={"Ej. María"}
+        />
+        {/* 
+      //#region DNI
+        */}
+        <FormInputPrimary
+          type={"number"}
+          label={"DNI"}
+          errors={state?.dni}
+          handler={handleChange}
+          name={"dni"}
+          value={formData.dni}
+          placeholder={"Número de documento"}
         />
 
-        <section className="w-full flex flex-col gap-4 m-4">
-          <label htmlFor="sex" className="text-primary font-semibold">Sexo</label>
-          <article className="flex flex-row justify-evenly gap-4">
-            <button
-              type="button"
-              name="sex"
-              value="masculino"
-              onClick={handleChange}
-              className={`border px-4 py-2 rounded ${formData.sex === 'masculino' ? 'border-primary text-primary' : ''}`}
-            >
-              Masculino
-            </button>
-            <button
-              type="button"
-              name="sex"
-              value="femenino"
-              onClick={handleChange}
-              className={`border px-4 py-2 rounded ${formData.sex === 'femenino' ? 'border-primary text-primary' : ''}`}
-            >
-              Femenino
-            </button>
-            <button
-              type="button"
-              name="sex"
-              value="otro"
-              onClick={handleChange}
-              className={`border px-4 py-2 rounded ${formData.sex === 'otro' ? 'border-primary text-primary' : ''}`}
-            >
-              Otro
-            </button>
+        <section className="w-full items-center flex gap-4">
+          {/* 
+      //#region NACIMIENTO
+        */}
+          <article className="w-full h-fit flex flex-col gap-2">
+            <label htmlFor="birthdate" className="font-semibold">Fecha de Nacimiento</label>
+            <input
+              type="date"
+              name="birthdate"
+              id="birthdate"
+              className="p-2 b-1 border border-black rounded-lg bg-transparent placeholder:text-gray-500 placeholder:italic placeholder:opacity-60"
+              value={formData.birthdate}
+              onChange={handleChange}
+            />
+            {state?.birthdate && state.birthdate.length > 0 && (
+              <p className="text-destructive text-sm">{state.birthdate}</p>
+            )}
           </article>
-          {state?.sex && (
-            <ul>
-              {state?.sex.map((error, index) => (
-                <li key={index} className="text-destructive text-sm">
-                  {error}
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
-
-        <section className="w-full flex flex-col gap-4 m-4">
-          <label htmlFor="birthdate" className="text-primary font-semibold">Fecha de Nacimiento</label>
-          <input
-            type="date"
-            name="birthdate"
-            id="birthdate"
-            className="border px-4 py-2 rounded"
-            value={formData.birthdate}
-            onChange={handleChange}
+          {/* 
+      //#region SEXO
+        */}
+          <FormInputPrimary
+            label={"Sexo"}
+            errors={state?.sex}
+            handler={handleChange}
+            name={"sex"}
+            value={formData.sex}
+            placeholder={"Sexo"}
           />
-          {state?.birthdate && state.birthdate.length > 0 && (
-            <p className="text-destructive text-sm">{state.birthdate}</p>
-          )}
         </section>
 
         <SubtmitButton value={'Siguiente'} />
