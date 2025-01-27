@@ -180,9 +180,9 @@ public class SecurityConfig {
             logger.info("error: {}", accessDeniedException.getMessage());
             response.setStatus(HttpStatus.FORBIDDEN.value());
             response.getWriter().write("403 Forbidden: Acceso denegado." + accessDeniedException.getMessage());
-
         };
     }
+
     @Bean
     public AuthenticationEntryPoint authenticationEntryPoint() {
         return new Http403ForbiddenEntryPoint(); // This will return a 403 error if not authenticated
