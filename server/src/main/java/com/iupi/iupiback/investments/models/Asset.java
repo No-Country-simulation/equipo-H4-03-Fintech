@@ -27,13 +27,14 @@ public class Asset {
     @Column(name = "asset_name", nullable = false, length = 90)
     private String assetName;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "asset_type", nullable = false, length = 20)
     private AssetType assetType;
 
     @Column(name = "unit_value", nullable = false, length = 20)
     private Double unitValue;
 
-    @Column(name = "quantiy", nullable = false, length = 30)
+    @Column(name = "quantity", nullable = false, length = 30)
     private Double quantity;
 
     @Column(name = "total_value", nullable = false, length = 30)
