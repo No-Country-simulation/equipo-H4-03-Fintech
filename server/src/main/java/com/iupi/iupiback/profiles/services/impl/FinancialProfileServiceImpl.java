@@ -56,7 +56,7 @@ public class FinancialProfileServiceImpl extends CRUDServiceImpl<FinancialProfil
 
     @Override
     public FinancialProfile getMyFinancialProfile(String userId) {
-        return repo.findByUserId(userId).orElseThrow(()->new NotFoundException("User not found"));
+        return repo.findByUserId(userId).orElseThrow(()->new NotFoundException("Usuario no tiene perfil financiero"));
     }
 
     @Override
