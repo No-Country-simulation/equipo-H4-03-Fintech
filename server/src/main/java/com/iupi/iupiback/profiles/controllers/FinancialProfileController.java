@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/financial-profile")
+@RequestMapping("api/financial-profile")
 @RequiredArgsConstructor
 public class FinancialProfileController {
 
@@ -67,8 +67,8 @@ public class FinancialProfileController {
         return new ResponseEntity<>(listResponse, HttpStatus.OK);
     }
 
-    @PostMapping("/{userId}/survey")
-    public ResponseEntity<FinancialProfileResponseDTO> saveSurveyAnswers(@PathVariable String userId, @RequestBody List<AnswerRequestDTO> answers){
-        return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toFinancialProfileResponseDTO(service.saveSurveyAnswers(userId,answers)));
+    @PostMapping("/survey")
+    public ResponseEntity<FinancialProfileResponseDTO> saveSurveyAnswers(@CurrentUser UserPrincipal user, @RequestBody List<AnswerRequestDTO> answers){
+        return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toFinancialProfileResponseDTO(service.saveSurveyAnswers(user.getId(),answers)));
     }
 }
