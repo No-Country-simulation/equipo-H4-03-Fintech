@@ -1,16 +1,24 @@
 import { Link } from "react-router-dom";
 import SideMenuItem from "../../ui/SideMenuItem";
+import { useDispatch } from "react-redux";
+import { closeMenu } from "../../../redux/slices/sidebarSlices";
 
-export default function Sidebar({ setIsOpen }) {
+export default function Sidebar() {
+
+  const dispatch = useDispatch()
+  const handleCloseMenu = () => {
+    dispatch(closeMenu())
+  }
+
   return (
     <div className="h-screen flex flex-col bg-background overflow-y-auto no-scrollbar">
       <div className="flex-1">
-        <div class="w-full flex flex-col p-2 h-[150px] bg-[#004aac]">
+        <div className="w-full flex flex-col p-2 h-[150px] bg-[#004aac]">
           <img
             className="size-8 self-end cursor-pointer"
             src="/assets/close-icon.svg"
             alt="close icon"
-            onClick={() => setIsOpen(false)}
+            onClick={handleCloseMenu}
           />
         </div>
 
@@ -33,7 +41,7 @@ export default function Sidebar({ setIsOpen }) {
             <div className="w-full h-[55px] flex items-center justify-start px-4">
               <span className="font-medium text-subtitle text-black">Mi cuenta</span>
             </div>
-            <SideMenuItem icon={'default-user'} label={"Mis datos"} />
+            <SideMenuItem icon={'default-user'} label={"Mis datos"} name={"mydata"} />
             <SideMenuItem icon={'user-badge'} label={"Test inversor"} />
             <SideMenuItem icon={'premium'} label={"Premium"} />
             <SideMenuItem icon={'academia'} label={"Academia"} />
