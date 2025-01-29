@@ -6,8 +6,7 @@
       "goal_name": "Vacaciones en la playa",
       "target_amount": 2000,
       "saved_amount": 1500,
-      "end_date": "2025-12-31",
-      "recommended_savings_rate": 100
+      "end_date": "2025-12-31"
     },
     {
       "goal_id": "goal2",
@@ -23,7 +22,7 @@
       "goal_name": "Fondos de emergencia",
       "target_amount": 10000,
       "saved_amount": 1000,
-      "recommended_savings_rate": 200
+      "end_date": "2025-04-30"
     }
   ]
 }
