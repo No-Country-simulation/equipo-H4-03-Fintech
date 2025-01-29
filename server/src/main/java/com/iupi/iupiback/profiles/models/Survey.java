@@ -27,7 +27,7 @@ public class Survey {
     private LocalDate startDate=LocalDate.now();
     private Boolean active=true;
 
-    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "survey",fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Question>questions;
 }

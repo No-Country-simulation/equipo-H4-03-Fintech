@@ -32,7 +32,7 @@ public class Question {
     @JoinColumn(name = "survey_id", nullable = false,foreignKey = @ForeignKey(name = "FK_QUESTIONS_SURVEY"))
     private Survey survey;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "question",fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Answer>answers;
 }
