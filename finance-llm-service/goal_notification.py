@@ -23,15 +23,15 @@ logging.basicConfig(level=logging.INFO)
 ai21_client = AI21Client(api_key=os.getenv("AI21_API_KEY"))
 
 def validate_goal(goal):
-    required_fields = ["goal_id", "user_id", "goal_name", "target_amount", "saved_amount", "end_date"]
+    required_fields = ["goal_id", "user_id", "goal_name", "target_amount", "saved_amount"]
     for field in required_fields:
         if field not in goal:
             raise ValueError(f"Missing field '{field}' in goal data.")
 
 def months_until(end_date):
     today = datetime.now().date()
-    end = datetime.strptime(end_date, "%Y-%m-%d").date() if end_date != "unknown" else datetime.now().date()
-    return (end - today).days // 30
+    end = datetime.strptime(end_date, "%Y-%m-%d").date() if end_date != "unknown" else today
+    return max((end - today).days // 30, 1)  # Avoid division by zero
 
 @app.route('/notification', methods=['POST'])
 def notification():
@@ -56,24 +56,19 @@ def notification():
                 goal_name = goal["goal_name"]
                 target_amount = goal.get("target_amount", 0)
                 saved_amount = goal.get("saved_amount", 0)
-                end_date = goal["end_date"]  # Assuming end_date is always provided now
                 
                 # Calculate progress percentage
                 progress_percentage = round((saved_amount / target_amount) * 100, 1) if target_amount > 0 else 0
                 
-                # Months until end date
-                months_left = months_until(end_date)
-                
-                # Calculate recommended savings per month
-                recommended_savings = round((target_amount - saved_amount) / months_left, 2) if months_left > 0 else 0
-                
                 # Prepare AI21 prompt
-                system = "Eres un asesor financiero. Genera notificaciones concisas y personalizadas del progreso (máximo 90 caracteres)."
-                user_prompt = f"""Objetivo: '{goal_name}'. Progreso: {progress_percentage}%. Ahorro recomendado: ${recommended_savings}.
-                Motiva al usuario con el progreso para alcanzar {goal_name} y recomienda el ahorro mensual para alcanzar la meta en la fecha límite."""
-
+                system_prompt = (
+                    "Eres un asesor financiero. Genera notificaciones cortas y motivadoras "
+                    "para ayudar a los usuarios a alcanzar sus metas de ahorro (máximo 90 caracteres)."
+                )
+                user_prompt = f"Meta: {goal_name}. Avance: {progress_percentage}%. Motiva al usuario a continuar ahorrando."
+                
                 messages = [
-                    ChatMessage(content=system, role="system"),
+                    ChatMessage(content=system_prompt, role="system"),
                     ChatMessage(content=user_prompt, role="user")
                 ]
                 
@@ -81,11 +76,11 @@ def notification():
                 
                 response = ai21_client.chat.completions.create(
                     messages=messages,
-                    model="jamba-1.5-mini",
+                    model="jamba-1.5-large",
                     stream=False,
                 )
                 
-                advice = response.choices[0].message.content.strip()[:160]  # Ensure it's within 90 chars limit
+                advice = response.choices[0].message.content.strip()[:100]
                 
                 notifications.append({
                     "goal_id": goal_id,
