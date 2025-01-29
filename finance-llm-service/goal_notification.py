@@ -5,6 +5,7 @@ from ai21.models.chat import ChatMessage
 import os
 from dotenv import load_dotenv
 import logging
+from datetime import datetime
 
 # Load environment variables
 load_dotenv()
@@ -22,11 +23,15 @@ logging.basicConfig(level=logging.INFO)
 ai21_client = AI21Client(api_key=os.getenv("AI21_API_KEY"))
 
 def validate_goal(goal):
-    """Validate that required fields exist in the goal dictionary."""
-    required_fields = ["goal_id", "user_id", "goal_name", "target_amount", "saved_amount"]
+    required_fields = ["goal_id", "user_id", "goal_name", "target_amount", "saved_amount", "end_date"]
     for field in required_fields:
         if field not in goal:
             raise ValueError(f"Missing field '{field}' in goal data.")
+
+def months_until(end_date):
+    today = datetime.now().date()
+    end = datetime.strptime(end_date, "%Y-%m-%d").date() if end_date != "unknown" else datetime.now().date()
+    return (end - today).days // 30
 
 @app.route('/notification', methods=['POST'])
 def notification():
@@ -51,16 +56,22 @@ def notification():
                 goal_name = goal["goal_name"]
                 target_amount = goal.get("target_amount", 0)
                 saved_amount = goal.get("saved_amount", 0)
-                end_date = goal.get("end_date", "unknown")
+                end_date = goal["end_date"]  # Assuming end_date is always provided now
                 
                 # Calculate progress percentage
-                progress_percentage = round((saved_amount / target_amount) * 100, 2) if target_amount > 0 else 0
+                progress_percentage = round((saved_amount / target_amount) * 100, 1) if target_amount > 0 else 0
+                
+                # Months until end date
+                months_left = months_until(end_date)
+                
+                # Calculate recommended savings per month
+                recommended_savings = round((target_amount - saved_amount) / months_left, 2) if months_left > 0 else 0
                 
                 # Prepare AI21 prompt
-                system = "Eres un asesor financiero que genera notificaciones de progreso para los usuarios (90 caracteres máximo)."
-                user_prompt = f"""El usuario tiene el siguiente objetivo '{goal_name}'. Ha logrado ahorrar {progress_percentage}% de su objetivo. 
-                Motiva al usuario para que complete su objetivo el día {end_date} y aconseja para fomentar el ahorro."""
-                
+                system = "Eres un asesor financiero. Genera notificaciones concisas y personalizadas del progreso (máximo 90 caracteres)."
+                user_prompt = f"""Objetivo: '{goal_name}'. Progreso: {progress_percentage}%. Ahorro recomendado: ${recommended_savings}.
+                Motiva al usuario con el progreso para alcanzar {goal_name} y recomienda el ahorro mensual para alcanzar la meta en la fecha límite."""
+
                 messages = [
                     ChatMessage(content=system, role="system"),
                     ChatMessage(content=user_prompt, role="user")
@@ -74,13 +85,12 @@ def notification():
                     stream=False,
                 )
                 
-                advice = response.choices[0].message.content.strip()
+                advice = response.choices[0].message.content.strip()[:160]  # Ensure it's within 90 chars limit
                 
-                # Corrected JSON formatting for the 'message' field
                 notifications.append({
                     "goal_id": goal_id,
                     "user_id": user_id,
-                    "message": advice,  # Removed curly braces, this should be just the string value
+                    "message": advice,
                     "status": "success"
                 })
             except ValueError as ve:
@@ -102,8 +112,6 @@ def notification():
         
         logging.info(f"Generated Notifications: {notifications}")
         return jsonify({"notifications": notifications})
-    
-
     except Exception as e:
         logging.error(f"General error generating notifications: {str(e)}")
         return jsonify({"error": f"General error generating notifications: {str(e)}"}), 500
