@@ -10,6 +10,7 @@ import org.mapstruct.Mapping;
 public interface SurveyMapper {
     @Mapping(source = "id",target = "surveyId")
     @Mapping(source = "title",target = "title")
+    @Mapping(source = "questions",target = "questions")
     SurveyResponseDTO toSurveyResponseDTO(Survey survey);
 
     Survey toSurvey(SurveyRequestDTO surveyRequestDTO);
