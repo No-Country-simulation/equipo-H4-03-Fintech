@@ -6,7 +6,7 @@ import com.iupi.iupiback.profiles.models.Question;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",uses = {QuestionMapper.class, AnswerMapper.class})
 public interface QuestionMapper {
 
     @Mapping(source = "id",target = "questionId")

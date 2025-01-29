@@ -6,7 +6,7 @@ import com.iupi.iupiback.profiles.models.Survey;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",uses = {SurveyMapper.class,QuestionMapper.class})
 public interface SurveyMapper {
     @Mapping(source = "id",target = "surveyId")
     @Mapping(source = "title",target = "title")
