@@ -10,12 +10,18 @@ module.exports = {
       },
       animation: {
         'marquee': 'marquee 5s linear infinite',
+        'bounce-in': 'bounce-in 0.5s ease-out'
       },
       keyframes: {
         marquee: {
           '0%': { transform: 'translateX(100%)' },
           '100%': { transform: 'translateX(-100%)' }
         },
+        'bounce-in': {
+          '0%': { transform: 'translateX(-100%)' },
+          '70%': { transform: 'translateX(10%)' },
+          '100%': { transform: 'translateX(0)' }
+        }
       },
       borderRadius: {
         xl: 'var(--radius)',
