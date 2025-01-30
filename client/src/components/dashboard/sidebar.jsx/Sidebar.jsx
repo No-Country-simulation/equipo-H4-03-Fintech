@@ -45,7 +45,7 @@ export default function Sidebar() {
             <SideMenuItem icon={'user-badge'} label={"Test inversor"} />
             <SideMenuItem icon={'premium'} label={"Premium"} />
             <SideMenuItem icon={'academia'} label={"Academia"} />
-            <SideMenuItem icon={'bell'} label={"Notificaciones"} />
+            <SideMenuItem icon={'bell'} label={"Notificaciones"} name={"notifications"} />
             <SideMenuItem icon={'lock'} label={"Seguridad"} />
             <SideMenuItem icon={'preferencias'} label={"Preferencias"} />
           </div>

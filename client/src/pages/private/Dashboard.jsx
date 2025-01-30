@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
 import { openMenu } from "../../redux/slices/sidebarSlices";
 import Sidebar from '../../components/dashboard/sidebar.jsx/Sidebar'
 import MyData from '../../components/dashboard/sidebar.jsx/MyData';
+import Notifications from '../../components/dashboard/sidebar.jsx/Notifications';
 
 export default function Dashboard() {
 
@@ -20,6 +21,7 @@ export default function Dashboard() {
           menu
         </button>
         <h1 className='text-title'>component dashboard</h1>
+        <Link to="/onboarding/" >Onboarding</Link>
       </div>
       <div className={`
         fixed top-0 left-0 h-screen w-96
@@ -36,6 +38,13 @@ export default function Dashboard() {
         <MyData />
       </div>
 
+      <div className={`
+        fixed top-0 left-0 h-screen w-96 z-10
+        transform transition-transform duration-300 ease-in-out
+        ${sidebar.notifications ? 'translate-x-0 animate-bounce-in' : '-translate-x-full'}
+      `}>
+        <Notifications />
+      </div>
       <Outlet />
     </div>
   )

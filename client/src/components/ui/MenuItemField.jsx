@@ -1,4 +1,4 @@
-export default function MenuItemField({ fieldId, fieldType, label, placeholder }) {
+export default function MenuItemField({ fieldId, fieldType, label, placeholder, edit }) {
   
   const handlePencilClick = id => {
     const $input = document.getElementById(id)
@@ -10,7 +10,7 @@ export default function MenuItemField({ fieldId, fieldType, label, placeholder }
   return (
     <aside className="flex flex-col gap-2">
       <span class="font-normal text-base text-black">{label}</span>
-      <article className="h-[55px] flex items-center justify-between px-4 border border-black rounded-sm">
+      <article className={`h-[55px] flex items-center ${edit ? 'justify-between' : 'justify-start'} px-4 border border-black rounded-sm`}>
         <input
           type={fieldType ? fieldType : "text"}
           placeholder={placeholder}
@@ -21,7 +21,7 @@ export default function MenuItemField({ fieldId, fieldType, label, placeholder }
         <img
           src="/assets/pencil.svg"
           alt="pencil"
-          className="cursor-pointer"
+          className={edit ? "cursor-pointer": "hidden"}
           onClick={() => handlePencilClick(fieldId)}
         />
       </article>
