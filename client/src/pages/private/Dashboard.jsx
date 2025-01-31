@@ -5,8 +5,7 @@ import Capital from '../../components/dashboard/Capital';
 import Crypto from '../../components/dashboard/Crypto';
 import OnboardingLink from '../../components/ui/OnboardingLink';
 import BalancePanel from '../../components/ui/BalancePanel';
-import Shortcuts from '../../components/ui/Shortcuts';
-import DashboardFavorites from '../../components/ui/CryptoDashboardFavorites';
+import AcademyLink from '../../components/ui/AcademyLink';
 
 export default function Dashboard() {
 
@@ -22,6 +21,7 @@ export default function Dashboard() {
         <span className="font-medium text-title text-black">Bienvenido</span>
         <BalancePanel />
         {isCapital ? <Capital /> : <Crypto />}
+        <AcademyLink />
       </div>
     </div> 
   )

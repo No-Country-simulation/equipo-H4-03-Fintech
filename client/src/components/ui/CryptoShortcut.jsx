@@ -6,7 +6,7 @@ export default function CryptoShortcut({ to, label, icon }) {
       <article className={`size-14 rounded-full flex items-center justify-center bg-crypto`}>
         <img src={`/assets/${icon}.svg`} alt="money symbol" />
       </article>
-      <span className="font-medium text-base text-center text-[#797979]">{label}</span>
+      <span className="font-medium text-base text-center text-muted">{label}</span>
     </Link>
   )
 }

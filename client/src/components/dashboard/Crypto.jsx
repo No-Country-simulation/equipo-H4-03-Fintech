@@ -1,6 +1,7 @@
+import Shortcuts from "../ui/CryptoShortcuts";
 import DashboardFavorites from "../ui/CryptoDashboardFavorites";
 import Goals from "../ui/CryptoDashboardGoals";
-import Shortcuts from "../ui/CryptoShortcuts";
+import Suggestions from "../ui/CryptoSuggestions";
 
 export default function Crypto () {
   return (
@@ -8,6 +9,7 @@ export default function Crypto () {
       <Shortcuts />
       <DashboardFavorites />
       <Goals />
+      <Suggestions />
     </div>
   )
 }

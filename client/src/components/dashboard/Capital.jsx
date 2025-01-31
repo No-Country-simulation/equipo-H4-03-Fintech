@@ -1,6 +1,7 @@
 import DashboardFavorites from "../ui/CapitalDashboardFavorites";
 import Goals from "../ui/CapitalDashboardGoals";
 import Shortcuts from "../ui/CapitalShortcuts";
+import Suggestions from "../ui/CapitalSuggestions";
 
 export default function Capital () {
   return (
@@ -8,6 +9,7 @@ export default function Capital () {
       <Shortcuts />
       <DashboardFavorites />
       <Goals />
+      <Suggestions />
     </div>
   )
 }

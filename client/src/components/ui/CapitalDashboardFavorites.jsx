@@ -3,8 +3,8 @@ import CapitalFavoriteItem from "./CapitalFavoriteItem"
 export default function DashboardFavorites({ title, amount, variation }) {
 
   return (
-    <div className="w-full flex flex-col items-center">
-      <div className="w-[600px] flex flex-col items-start px-10 gap-4">
+    <div className="w-[600px] flex flex-col items-center my-4">
+      <div className="w-[500px] flex flex-col gap-5">
         <span class="font-medium text-subtitle text-black">Favoritos</span>
         <div className="w-[500px] flex justify-around items-center bg-white rounded-lg mx-auto p-3 shadow-custom2">
           <CapitalFavoriteItem

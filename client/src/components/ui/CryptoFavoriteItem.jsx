@@ -8,12 +8,12 @@ export default function CryptoFavoriteItem({ title, amount, variation, icon }) {
         <span className="font-medium text-base text-center text-black">
           {title}
         </span>
-        <img src={`/assets/${icon}.svg`} alt="money symbol" className="size-4" />
+        <img src={`/assets/${icon}.svg`} alt={icon} className="size-4" />
       </div>
-      <span className="font-normal text-base text-center text-[#797979]">
+      <span className="font-normal text-base text-center text-muted">
         {amount}
       </span>
-      <span className={`font-normal text-base text-center text-nowrap ${isDown ? 'text-[#eb4335]' : 'text-[#34a853]'}`}>
+      <span className={`font-normal text-base text-center text-nowrap ${isDown ? 'text-destructive' : 'text-success'}`}>
         {variation}
       </span>
     </div>

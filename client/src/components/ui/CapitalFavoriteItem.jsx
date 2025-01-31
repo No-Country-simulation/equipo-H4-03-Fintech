@@ -7,10 +7,10 @@ export default function CapitalFavoriteItem({title, amount, variation}) {
       <span className="font-medium text-base text-center text-black">
         {title}
       </span>
-      <span className="font-normal text-base text-center text-[#797979]">
+      <span className="font-normal text-base text-center text-muted">
         {amount}
       </span>
-      <span className={`font-normal text-base text-center text-nowrap ${isDown ? 'text-[#eb4335]' : 'text-[#34a853]' }`}>
+      <span className={`font-normal text-base text-center text-nowrap ${isDown ? 'text-destructive' : 'text-success' }`}>
         {variation}
       </span>
     </div>

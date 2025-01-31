@@ -1,7 +1,7 @@
 export default function CheckSelectionButton({ handler, name, value, content }) {
   return (
     <button
-      className={`w-full flex items-center self-stretch p-4 rounded-xl border border-solid ${value ? 'border-primary justify-between' : 'border-[#797979]'} justify-start`}
+      className={`w-full flex items-center self-stretch p-4 rounded-xl border border-solid ${value ? 'border-primary justify-between' : 'border-muted'} justify-start`}
       onClick={event => {
         event.preventDefault()
         handler(name)
