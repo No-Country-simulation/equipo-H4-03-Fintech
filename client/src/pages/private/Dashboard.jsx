@@ -1,51 +1,28 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { Link, Outlet, useNavigate } from 'react-router-dom'
-import { openMenu } from "../../redux/slices/sidebarSlices";
+import { useSelector } from 'react-redux'
 import Sidebar from '../../components/dashboard/sidebar.jsx/Sidebar'
-import MyData from '../../components/dashboard/sidebar.jsx/MyData';
-import Notifications from '../../components/dashboard/sidebar.jsx/Notifications';
+import DashboardHeader from '../../components/ui/DashboardHeader';
+import Capital from '../../components/dashboard/Capital';
+import Crypto from '../../components/dashboard/Crypto';
+import OnboardingLink from '../../components/ui/OnboardingLink';
+import BalancePanel from '../../components/ui/BalancePanel';
+import Shortcuts from '../../components/ui/Shortcuts';
+import DashboardFavorites from '../../components/ui/CryptoDashboardFavorites';
 
 export default function Dashboard() {
 
-  const sidebar = useSelector(state => state.sidebar)
-
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const { isCapital } = useSelector(state => state.switcher)
 
   return (
-    <div className='w-screen h-screen flex flex-col justify-center items-center gap-5'>
-      <div className="flex gap-10">
-        <button
-          onClick={() => dispatch(openMenu('menu'))}
-        >
-          menu
-        </button>
-        <h1 className='text-title'>component dashboard</h1>
-        <Link to="/onboarding/" >Onboarding</Link>
-      </div>
-      <div className={`
-        fixed top-0 left-0 h-screen w-96
-        transform transition-transform duration-300 ease-in-out
-        ${sidebar.menu ? 'translate-x-0 animate-bounce-in' : '-translate-x-full'}
-      `}>
-        <Sidebar />
-      </div>
-      <div className={`
-        fixed top-0 left-0 h-screen w-96 z-10
-        transform transition-transform duration-300 ease-in-out
-        ${sidebar.mydata ? 'translate-x-0 animate-bounce-in' : '-translate-x-full'}
-      `}>
-        <MyData />
-      </div>
+    <div className='w-screen min-h-screen flex flex-col justify-start items-center p-10 bg-background'>
+      <div className="w-[600px] flex flex-col justify-start items-start gap-5 bg-background">
 
-      <div className={`
-        fixed top-0 left-0 h-screen w-96 z-10
-        transform transition-transform duration-300 ease-in-out
-        ${sidebar.notifications ? 'translate-x-0 animate-bounce-in' : '-translate-x-full'}
-      `}>
-        <Notifications />
+        <DashboardHeader />
+        <Sidebar />
+        <OnboardingLink />
+        <span className="font-medium text-title text-black">Bienvenido</span>
+        <BalancePanel />
+        {isCapital ? <Capital /> : <Crypto />}
       </div>
-      <Outlet />
-    </div>
+    </div> 
   )
 }

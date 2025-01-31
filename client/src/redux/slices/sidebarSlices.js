@@ -20,9 +20,6 @@ const sidebarSlices = createSlice({
     },
     openMenu: (state, { payload }) => {
       switch (payload) {
-        case 'menu':
-          state.menu = true
-          break;
         case 'mydata':
           state.mydata = true
           break;
@@ -30,7 +27,7 @@ const sidebarSlices = createSlice({
           state.notifications = true
           break
         default:
-          state = initialState
+          state.menu = true
           break;
       }
 

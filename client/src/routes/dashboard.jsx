@@ -1,5 +1,5 @@
-import Main from "../components/dashboard/Main";
 import Dashboard from "../pages/private/Dashboard";
+import Main from "../components/dashboard/Main";
 
 const dashboardRoutes = {
   path: '/dashboard',
