@@ -4,12 +4,14 @@ import BalancePanel from '../ui/BalancePanel';
 import OnboardingLink from '../ui/OnboardingLink';
 import Capital from './Capital';
 import Crypto from './Crypto';
+import DashboardHeader from '../ui/DashboardHeader';
 
 export default function Main() {
   const { isCapital } = useSelector(state => state.switcher)
 
   return (
     <div className="w-[600px] flex flex-col justify-start items-start gap-5 bg-background">
+      <DashboardHeader />
       <OnboardingLink />
       <span className="font-medium text-title text-black">Bienvenido</span>
       <BalancePanel />
