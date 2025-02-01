@@ -16,7 +16,7 @@
     --primary-foreground: hsl(210 40% 98%);
     --secondary: #95c1db;
     --secondary-foreground: hsl(222.2 47.4% 11.2%);
-    --muted: #787878;
+    --muted: #797979;
     --muted-foreground: 215.4 16.3% 46.9%;
     --accent: hsl(210 40% 96.1%);
     --accent-foreground: hsl(222.2 47.4% 11.2%);
@@ -32,11 +32,12 @@
     --chart-4: hsl(43 74% 66%);
     --chart-5: hsl(27 87% 67%);
     --bg: hsl(214, 100%, 34%);
+    --success: #34a853;
 
     --blue: #004AAC;
     --yellow: #ffa600;
     --lightblue: #95c1db;
-    --gray: #787878;
+    --gray: #797979;
   }
 
   select {

@@ -5,8 +5,8 @@ module.exports = {
   theme: {
     extend: {
       boxShadow: {
-        form: '0 2px 4px rgba(0, 0, 0, 0.1)',
-        custom1: '0 0 0 2px rgba(0,82,204,0.2)'
+        custom1: '0 0 0 2px rgba(0, 0, 0, 0.1)',
+        custom2: '0 2px 4px rgba(0, 0, 0, 0.1)',
       },
       animation: {
         'marquee': 'marquee 5s linear infinite',
@@ -49,17 +49,23 @@ module.exports = {
           DEFAULT: 'var(--secondary)',
           foreground: 'var(--secondary-foreground)'
         },
+        crypto: {
+          DEFAULT: 'var(--yellow)',
+        },
         muted: {
           DEFAULT: 'var(--muted)',
           foreground: 'var(--muted-foreground)'
         },
         accent: {
-          DEFAULT: 'var(--accent)',
+          DEFAULT: 'var(--yellow)',
           foreground: 'var(--accent-foreground)'
         },
         destructive: {
           DEFAULT: 'var(--destructive)',
           foreground: 'var(--destructive-foreground)'
+        },
+        success: {
+          DEFAULT: 'var(--success)'
         },
         border: 'var(--border)',
         input: 'var(--input)',

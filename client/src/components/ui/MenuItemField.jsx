@@ -9,7 +9,7 @@ export default function MenuItemField({ fieldId, fieldType, label, placeholder, 
 
   return (
     <aside className="flex flex-col gap-2">
-      <span class="font-normal text-base text-black">{label}</span>
+      <span className="font-normal text-base text-black">{label}</span>
       <article className={`h-[55px] flex items-center ${edit ? 'justify-between' : 'justify-start'} px-4 border border-black rounded-sm`}>
         <input
           type={fieldType ? fieldType : "text"}
