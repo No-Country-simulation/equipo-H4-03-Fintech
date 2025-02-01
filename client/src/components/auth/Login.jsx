@@ -119,8 +119,8 @@ export default function Login({ set }) {
       <div className="w-full h-[2px] bg-slate-400" />
 
       <section className="flex gap-2">
-        <span>¿No tienes cuenta ahún?</span>
-        <button className=" hover:underline" onClick={() => set('register')}>registrarme</button>
+        <span>¿No tienes cuenta aún?</span>
+        <button className=" hover:underline" onClick={() => set('register')}>Registrarme</button>
       </section>
       {/* 
       //#endregion
