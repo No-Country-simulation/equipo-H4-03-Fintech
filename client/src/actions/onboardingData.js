@@ -28,7 +28,6 @@ export async function Identification(state, formData) {
     dni: formData.get("dni"),
     terms: formData.get("terms")
   })
-  console.log({ validatedFields });
 
   if (!validatedFields.success) {
     return validatedFields.error.flatten().fieldErrors
