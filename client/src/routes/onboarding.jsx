@@ -1,26 +1,26 @@
-import Onboarding from "../pages/private/Onboarding";
-import Beginning from "../components/onboarding/Beginning";
+import Onboarding from "@pages/private/Onboarding";
+import Beginning from "@components/onboarding/Beginning";
 //#region PERS. DATA
-import Profile from "../components/onboarding/OnboardinProfile";
-import OnboardingLocation from "../components/onboarding/OnboardinLocation";
+import Profile from "@components/onboarding/OnboardinProfile";
+import OnboardingLocation from "@components/onboarding/OnboardinLocation";
 //#region CONOCIMIENTO
-import PreInversor from "../components/onboarding/PreInversor";
-import FinancialLevel from "../components/onboarding/FinancialKnowledge/Level";
-import FinancialKnowledge from "../components/onboarding/FinancialKnowledge/Index";
-import FinancialInstruments from "../components/onboarding/FinancialKnowledge/FinancialInstruments";
-import InterpretGraphics from "../components/onboarding/FinancialKnowledge/InterpretGraphics";
+import PreInversor from "@components/onboarding/PreInversor";
+import FinancialLevel from "@components/onboarding/FinancialKnowledge/Level";
+import FinancialKnowledge from "@components/onboarding/FinancialKnowledge/Index";
+import FinancialInstruments from "@components/onboarding/FinancialKnowledge/FinancialInstruments";
+import InterpretGraphics from "@components/onboarding/FinancialKnowledge/InterpretGraphics";
 //#region OBJETIVOS
-import FinancialGoal from "../components/onboarding/FinancialGoal/Index";
-import MainGoal from "../components/onboarding/FinancialGoal/MainGoal";
-import MainPorpouse from "../components/onboarding/FinancialGoal/MainPorpouse";
+import FinancialGoal from "@components/onboarding/FinancialGoal/Index";
+import MainGoal from "@components/onboarding/FinancialGoal/MainGoal";
+import MainPorpouse from "@components/onboarding/FinancialGoal/MainPorpouse";
 //#region TOLERANCIA
-import Fluctuations from "../components/onboarding/RiskTolerance/Fluctuations";
-import RiskTolerance from "../components/onboarding/RiskTolerance/Index";
-import Percentages from "../components/onboarding/RiskTolerance/Percentages";
+import Fluctuations from "@components/onboarding/RiskTolerance/Fluctuations";
+import RiskTolerance from "@components/onboarding/RiskTolerance/Index";
+import Percentages from "@components/onboarding/RiskTolerance/Percentages";
 //#region CAP. AHORRO
-import SavingsCapacity from "../components/onboarding/SavingsCapacity";
+import SavingsCapacity from "@components/onboarding/SavingsCapacity";
 
-import TestInversorResult from "../components/onboarding/Result";
+import TestInversorResult from "@components/onboarding/Result";
 
 const onboardingRoutes = {
     element: <Onboarding />,

@@ -1,21 +1,17 @@
-import { createBrowserRouter } from "react-router-dom"
-import Home from "./pages/public/Home"
-import dashboardRoutes from "./routes/dashboard"
-import onboardingRoutes from "./routes/onboarding"
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
-const App = createBrowserRouter([
-  {
-    path: '/',
-    element: <Home />,
-    errorElement: <h1 className="text-destructive text-3xl" >Error</h1>
-    // TODO: Pagina de error
-  },
-  {
-    path: '/home',
-    element: <Home />
-  },
+import homeRoutes from "./routes/home"
+import onboardingRoutes from "./routes/onboarding"
+import dashboardRoutes from "./routes/dashboard"
+import assetDetailsRoutes from "./routes/assetDetails"
+
+const router = createBrowserRouter([
+  ...homeRoutes,
   onboardingRoutes,
   dashboardRoutes,
+  assetDetailsRoutes
 ])
 
-export default App
+export default function App () {
+  return <RouterProvider router={router} />
+}

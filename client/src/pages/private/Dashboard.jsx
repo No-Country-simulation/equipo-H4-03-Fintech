@@ -1,6 +1,6 @@
-import Sidebar from '../../components/dashboard/sidebar.jsx/Sidebar';
 import { Outlet } from 'react-router-dom';
-import BottomMenu from '../../components/ui/BottomMenu';
+import Sidebar from '@components/dashboard/sidebar.jsx/Sidebar';
+import BottomMenu from '@ui/bottomMenu/BottomMenu';
 
 export default function Dashboard() {
 
