@@ -1,10 +1,10 @@
 import { useState } from "react";
-import SubtmitButton from "../ui/SubtmitButton";
-import QuestionsContainer from "../ui/QuestionsContainer";
-import CheckSelectionButton from "../ui/CheckSelectionButton";
 import { useNavigate } from "react-router-dom";
-import OnboardingProgressBar from "../ui/OnboardingProgressBar";
-import OnboardingNavbar from "../ui/OnboardingNavbar";
+import SubtmitButton from "@ui/SubtmitButton";
+import QuestionsContainer from "@ui/QuestionsContainer";
+import CheckSelectionButton from "@ui/CheckSelectionButton";
+import OnboardingProgressBar from "@ui/onboarding/OnboardingProgressBar";
+import OnboardingNavbar from "@ui/onboarding/OnboardingNavbar";
 
 export default function SavingsCapacity() {
   const initialFormState1 = {

@@ -1,10 +1,15 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import FilterPanel from './FilterPanel'
+import FilterPanelInstruments from './FilterPanelInstruments';
+import FiltersSaveModal from './FiltersSaveModal';
 
 export default function Header() {
-  const dispatch = useDispatch()
   const { isCapital } = useSelector(state => state.switcher)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [showFilter, setShowFilter] = useState(false)
+  const [showInstruments, setShowInstruments] = useState(false)
+  const [showConfirmFilters, setShowConfirmFilters] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,8 +42,17 @@ export default function Header() {
           src={`/assets/baseline-filter-${isCapital ? 'capital' : 'crypto'}.svg`} 
           alt='filter' 
           className="size-11 cursor-pointer" 
+          onClick={() => setShowFilter(true)}
         />
       </nav>
+      <FilterPanel 
+        show={showFilter} 
+        close={setShowFilter} 
+        handler={setShowInstruments} 
+        showModal={setShowConfirmFilters}
+      />
+      <FilterPanelInstruments show={showInstruments} close={setShowInstruments}/>
+      <FiltersSaveModal show={showConfirmFilters} handler={setShowConfirmFilters} />
     </header>
   )
 }

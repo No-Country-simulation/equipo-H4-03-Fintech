@@ -10,7 +10,8 @@ module.exports = {
       },
       animation: {
         'marquee': 'marquee 5s linear infinite',
-        'bounce-in': 'bounce-in 0.5s ease-out'
+        'bounce-in': 'bounce-in 0.5s ease-out',
+        'bounce-in-right': 'bounce-in-right 0.5s ease-out'
       },
       keyframes: {
         marquee: {
@@ -20,6 +21,11 @@ module.exports = {
         'bounce-in': {
           '0%': { transform: 'translateX(-100%)' },
           '70%': { transform: 'translateX(10%)' },
+          '100%': { transform: 'translateX(0)' }
+        },
+        'bounce-in-right': {
+          '0%': { transform: 'translateX(100%)' },
+          '70%': { transform: 'translateX(-10%)' },
           '100%': { transform: 'translateX(0)' }
         }
       },

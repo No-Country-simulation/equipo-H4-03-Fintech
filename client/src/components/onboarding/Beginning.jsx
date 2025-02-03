@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import OnboardingNavbar from "../ui/OnboardingNavbar";
+import OnboardingNavbar from "@ui/onboarding/OnboardingNavbar";
 
 export default function Beginning() {
   return (

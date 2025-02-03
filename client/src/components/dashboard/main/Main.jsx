@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux';
 import AcademyLink from '@ui/dashboard/AcademyLink';
 import BalancePanel from '@ui/dashboard/BalancePanel';
-import OnboardingLink from '@ui/OnboardingLink';
+import OnboardingLink from '@ui/onboarding/OnboardingLink';
+import DashboardHeader from '@ui/dashboard/DashboardHeader';
 import Capital from './Capital';
 import Crypto from './Crypto';
-import DashboardHeader from '@ui/dashboard/DashboardHeader';
 
 export default function Main() {
   const { isCapital } = useSelector(state => state.switcher)

@@ -62,6 +62,19 @@
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
   }
+
+  /* Chrome, Safari, Edge, Opera */
+  .no-spinners::-webkit-outer-spin-button,
+  .no-spinners::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  .no-spinners {
+    appearance: textfield;
+    -moz-appearance: textfield;
+  }
 }
 
 body {

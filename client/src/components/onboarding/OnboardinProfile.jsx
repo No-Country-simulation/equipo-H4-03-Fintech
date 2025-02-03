@@ -1,13 +1,12 @@
 import { useState, useActionState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import FormInputPrimary from "../ui/FormInputPrimary";
-import SubtmitButton from "../ui/SubtmitButton";
-import { Profile } from "../../actions/onboardingData";
-import BackArrow from "../ui/BackArrow";
-import OnboardingProgressBar from "../ui/OnboardingProgressBar";
 import { useSelector, useDispatch } from "react-redux";
-import { setUser } from "../../redux/slices/userSlices";
-import OnboardingNavbar from "../ui/OnboardingNavbar";
+import { setUser } from "@slices/userSlices";
+import { Profile } from "@actions/onboardingData";
+import FormInputPrimary from "@ui/onboarding/FormInputPrimary";
+import SubtmitButton from "../ui/SubtmitButton";
+import OnboardingProgressBar from "@ui/onboarding/OnboardingProgressBar";
+import OnboardingNavbar from "@ui/onboarding/OnboardingNavbar";
 
 export default function OnboardinProfile() {
 
