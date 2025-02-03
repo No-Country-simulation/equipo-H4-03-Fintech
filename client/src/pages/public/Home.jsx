@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
-import Register from "../../components/auth/Register";
-import Login from "../../components/auth/login";
-import SocialButtons from "../../components/auth/SocialButtons";
-import Separator from "../../components/ui/Separator";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 import { jwtDecode } from "jwt-decode";
-import { userService } from "../../services/user.service";
+import SocialButtons from "@components/auth/SocialButtons";
+import Separator from "@components/ui/Separator";
+import { userService } from "@services/user.service";
+import FormsContainer from "@components/auth/FormsContainer";
 
 export default function Home() {
 
@@ -17,17 +16,15 @@ export default function Home() {
   useEffect(()=> {
     const params = new URLSearchParams(location.search);
     const token = params.get('token');
-    if (cookies?.token) {
-      console.log(cookies?.token);
-      navigate('/dashboard')
-    }
-    
     if(token) {
       setCookies("token", token)
-      // const {userId} = jwtDecode(token)
-      // userService.getProfile(userId)
+      const {userId} = jwtDecode(token)
+      userService.getProfile(userId)
       navigate('/dashboard')
     }
+    // if (cookies) {
+      // navigate('/dashboard')
+    // }
   }, [])
 
   const clearComponentState = {
@@ -64,7 +61,7 @@ export default function Home() {
   }, [])
 
   return (
-    <main className={`w-dvw h-dvh flex flex-col items-center justify-center p-0 m-0 ${component.home ? "bg-primary" : ""}`}>
+    <main className={`w-dvw min-h-dvh flex flex-col items-center justify-center p-0 m-0 ${component.home ? "bg-primary" : ""}`}>
       {
         //#region LOGO
         component?.home && (
@@ -82,16 +79,7 @@ export default function Home() {
             </header>
             <SocialButtons auth={component} />
             <Separator />
-            {
-              //#region LOGIN
-              component?.login && <Login set={handleChangeComponent} />
-              //#endregion
-            }
-            {
-              //#region REGISTER
-              component?.register && <Register set={handleChangeComponent} />
-              //#endregion
-            }
+            <FormsContainer component={component} handleChangeComponent={handleChangeComponent} />
           </main>
         )
       }
