@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { openMenu } from '../../redux/slices/sidebarSlices';
+import { openMenu } from '@slices/sidebarSlices';
 import CriptoCapitalSwitch from './CriptoCapitalSwitch';
 
 export default function DashboardHeader() {
@@ -18,13 +18,13 @@ export default function DashboardHeader() {
 
   return (
     <header className={`
-      w-full flex justify-center bg-[#f9f9fb]
+      w-full flex justify-center bg-background
       rounded-bl-xl rounded-br-xl py-2 
       sticky top-0 left-0  
       transition-[border-width] duration-300 ease-in-out
       ${isScrolled ? 'border-b-4' : 'border-b-0'} 
     `}>
-      <div className='w-[600px] flex items-center justify-between'>
+      <nav className='w-[600px] flex items-center justify-between'>
         <button
           onClick={() => dispatch(openMenu('menu'))}
         >
@@ -52,7 +52,7 @@ export default function DashboardHeader() {
             </defs>
           </svg>
         </button>
-      </div>
+      </nav>
     </header>
   )
 }

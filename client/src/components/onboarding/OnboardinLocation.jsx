@@ -2,14 +2,14 @@ import { useEffect, useState, useActionState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../../redux/slices/userSlices";
+import { setUser } from "@slices/userSlices";
 import { Location } from "../../actions/onboardingData";
 
-import FormInputPrimary from "../ui/FormInputPrimary";
-import SubtmitButton from "../ui/SubtmitButton";
-import Flags from "../ui/Flags";
-import OnboardingProgressBar from "../ui/OnboardingProgressBar";
-import OnboardingNavbar from "../ui/OnboardingNavbar";
+import FormInputPrimary from "@ui/onboarding/FormInputPrimary";
+import SubtmitButton from "@ui/SubtmitButton";
+import Flags from "@ui/Flags";
+import OnboardingProgressBar from "@ui/onboarding/OnboardingProgressBar";
+import OnboardingNavbar from "@ui/onboarding/OnboardingNavbar";
 
 export default function OnboardinLocation() {
 

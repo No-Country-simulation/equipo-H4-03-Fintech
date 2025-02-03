@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import OnboardingProgressBar from "../../ui/OnboardingProgressBar";
-import OnboardingNavbar from "../../ui/OnboardingNavbar";
+import OnboardingProgressBar from "@ui/onboarding/OnboardingProgressBar";
+import OnboardingNavbar from "@ui/onboarding/OnboardingNavbar";
 
 export default function FinancialGoal() {
 

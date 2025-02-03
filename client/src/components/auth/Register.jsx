@@ -180,7 +180,7 @@ export default function Register({ set }) {
       */}
       <section>
         <span>¿Ya tienes cuenta?</span>
-        <button className="hover:underline" onClick={() => set('login')}>ingresar</button>
+        <button className="hover:underline" onClick={() => set('login')}>Ingresar</button>
       </section>
     </form>
   )

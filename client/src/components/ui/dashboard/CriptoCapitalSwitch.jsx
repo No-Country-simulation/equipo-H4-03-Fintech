@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { toggleSwitcher } from "../../redux/slices/switcherSlices";
+import { toggleSwitcher } from "@slices/switcherSlices";
 
 export default function CriptoCapitalSwitch() {
   const dispatch = useDispatch()

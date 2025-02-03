@@ -1,7 +1,7 @@
-import Shortcuts from "../ui/CryptoShortcuts";
-import DashboardFavorites from "../ui/CryptoDashboardFavorites";
-import Goals from "../ui/CryptoDashboardGoals";
-import Suggestions from "../ui/CryptoSuggestions";
+import Shortcuts from "@ui/dashboard/CryptoShortcuts";
+import DashboardFavorites from "@ui/dashboard/CryptoDashboardFavorites";
+import Goals from "@ui/dashboard/CryptoDashboardGoals";
+import Suggestions from "@ui/dashboard/CryptoSuggestions";
 
 export default function Crypto () {
   return (

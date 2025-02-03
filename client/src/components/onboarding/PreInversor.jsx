@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import SecondaryLink from "../ui/SecondaryLink";
-import OnboardingNavbar from "../ui/OnboardingNavbar";
+import OnboardingNavbar from "../ui/onboarding/OnboardingNavbar";
 
 export default function PreInversor() {
 

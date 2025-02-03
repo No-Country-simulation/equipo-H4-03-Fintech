@@ -1,9 +1,9 @@
-import Dashboard from "../pages/private/Dashboard";
-import Main from "../components/dashboard/Main";
-import Wallet from "../components/dashboard/Wallet";
-import Portfolio from "../components/dashboard/Portfolio";
-import Social from "../components/dashboard/Social";
-import Investment from "../components/dashboard/Investment";
+import Dashboard from "@pages/private/Dashboard";
+import Main from "@components/dashboard/main/Main";
+import Wallet from "@components/dashboard/Wallet";
+import Portfolio from "@components/dashboard/Portfolio";
+import Social from "@components/dashboard/Social";
+import Investment from "@components/dashboard/investment/Investment";
 
 const dashboardRoutes = {
   path: '/dashboard',

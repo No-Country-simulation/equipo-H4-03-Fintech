@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
-import Register from "../../components/auth/Register";
-import Login from "../../components/auth/Login";
-import SocialButtons from "../../components/auth/SocialButtons";
-import Separator from "../../components/ui/Separator";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 import { jwtDecode } from "jwt-decode";
-import { userService } from "../../services/user.service";
-import FormsContainer from "../../components/auth/FormsContainer";
+import SocialButtons from "@components/auth/SocialButtons";
+import Separator from "@components/ui/Separator";
+import { userService } from "@services/user.service";
+import FormsContainer from "@components/auth/FormsContainer";
 
 export default function Home() {
 
