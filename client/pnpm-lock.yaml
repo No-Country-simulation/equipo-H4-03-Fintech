@@ -11,6 +11,9 @@ dependencies:
   axios:
     specifier: 1.7.9
     version: 1.7.9
+  country-flag-icons:
+    specifier: ^1.5.14
+    version: 1.5.14
   jwt-decode:
     specifier: 4.0.0
     version: 4.0.0
@@ -1018,6 +1021,10 @@ packages:
   /cookie@1.0.2:
     resolution: {integrity: sha512-9Kr/j4O16ISv8zBBhJoi4bXOYNTkFLOqSL3UDB0njXxCXNezjeyVrJyGOWtgfs/q2km1gwBcfH8q1yEGoMYunA==}
     engines: {node: '>=18'}
+    dev: false
+
+  /country-flag-icons@1.5.14:
+    resolution: {integrity: sha512-GAFsVzHDu3bdAhbQ1LwBRqk/Ad8+ZzS5zU49P+lRla0KGy/V1V8ywNa1SxBOAmI/lyEOT9dfH3Q++q1lqJlvBA==}
     dev: false
 
   /cross-spawn@7.0.6:

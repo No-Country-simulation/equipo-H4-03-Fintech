@@ -1,24 +1,42 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    darkMode: ["class"],
-    content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
+  darkMode: ["class"],
+  content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
   theme: {
     extend: {
+      boxShadow: {
+        custom1: '0 0 0 2px rgba(0, 0, 0, 0.1)',
+        custom2: '0 2px 4px rgba(0, 0, 0, 0.1)',
+      },
       animation: {
         'marquee': 'marquee 5s linear infinite',
+        'bounce-in': 'bounce-in 0.5s ease-out',
+        'bounce-in-right': 'bounce-in-right 0.5s ease-out'
       },
       keyframes: {
         marquee: {
           '0%': { transform: 'translateX(100%)' },
           '100%': { transform: 'translateX(-100%)' }
         },
+        'bounce-in': {
+          '0%': { transform: 'translateX(-100%)' },
+          '70%': { transform: 'translateX(10%)' },
+          '100%': { transform: 'translateX(0)' }
+        },
+        'bounce-in-right': {
+          '0%': { transform: 'translateX(100%)' },
+          '70%': { transform: 'translateX(-10%)' },
+          '100%': { transform: 'translateX(0)' }
+        }
       },
       borderRadius: {
-        lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)'
+        xl: 'var(--radius)',
+        lg: 'calc(var(--radius) - 4px)',
+        md: 'calc(var(--radius) - 8px)',
+        sm: 'calc(var(--radius) - 12px)'
       },
       colors: {
+        'ligth-gray': '#EFEFEF',
         background: 'var(--background)',
         foreground: 'var(--foreground)',
         card: {
@@ -37,17 +55,23 @@ module.exports = {
           DEFAULT: 'var(--secondary)',
           foreground: 'var(--secondary-foreground)'
         },
+        crypto: {
+          DEFAULT: 'var(--yellow)',
+        },
         muted: {
           DEFAULT: 'var(--muted)',
           foreground: 'var(--muted-foreground)'
         },
         accent: {
-          DEFAULT: 'var(--accent)',
+          DEFAULT: 'var(--yellow)',
           foreground: 'var(--accent-foreground)'
         },
         destructive: {
           DEFAULT: 'var(--destructive)',
           foreground: 'var(--destructive-foreground)'
+        },
+        success: {
+          DEFAULT: 'var(--success)'
         },
         border: 'var(--border)',
         input: 'var(--input)',
